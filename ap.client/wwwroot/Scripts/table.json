@@ -1,0 +1,52 @@
+﻿{
+  "table": [
+    { "Id": "user_details" },
+    { "Columns": "Id,Name,Email,Mobile,Status" },
+    {
+      "Setup": [
+        {
+          "Field": "Id",
+          "Name": "Id",
+          "Edit": false,
+          "Show": false
+        },
+        {
+          "Field": "Name",
+          "Name": "Name",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Email",
+          "Name": "Email Address",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Mobile",
+          "Name": "Mobile No",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Balance",
+          "Name": "Current Balance",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Status",
+          "Name": "Status",
+          "Edit": true,
+          "Show": false
+        },
+        {
+          "Field": "Action",
+          "Name": "#",
+          "Edit": true,
+          "Show": true
+        }
+      ]
+    }
+  ]
+}

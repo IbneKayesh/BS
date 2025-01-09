@@ -1,0 +1,219 @@
+﻿{
+  "Tables": [
+    {
+      "Id": "tbl_business",
+      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress" ],
+      "Setup": [
+        {
+          "Field": "Id",
+          "Name": "Id",
+          "Edit": false,
+          "Show": false
+        },
+        {
+          "Field": "BusinessLogo",
+          "Name": "Logo",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "BusinessName",
+          "Name": "Business Name",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "ShortName",
+          "Name": "Short Name",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "OfficeAddress",
+          "Name": "OfficeAddress",
+          "Edit": true,
+          "Show": false
+        }
+      ]
+    },
+    {
+      "Id": "tbl_role",
+      "Columns": [ "Id", "Name" ],
+      "Setup": [
+        {
+          "Field": "Id",
+          "Name": "Id",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Name",
+          "Name": "Name",
+          "Edit": true,
+          "Show": true
+        }
+      ]
+    }
+  ],
+  "Forms": [
+    {
+      "Id": "frm_business",
+      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress" ],
+      "Setup": [
+        {
+          "Field": "Id",
+          "Name": "Id",
+          "Edit": false,
+          "Show": false,
+          "Required": true,
+          "Readonly": false,
+          "Default": "0"
+        },
+        {
+          "Field": "BusinessLogo",
+          "Name": "BusinessLogo",
+          "Edit": true,
+          "Show": true,
+          "Required": true,
+          "Readonly": false,
+          "Default": ""
+        },
+        {
+          "Field": "BusinessName",
+          "Name": "BusinessName",
+          "Edit": true,
+          "Show": true,
+          "Required": true,
+          "Readonly": false,
+          "Default": ""
+        },
+        {
+          "Field": "ShortName",
+          "Name": "ShortName",
+          "Edit": true,
+          "Show": true,
+          "Required": true,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "OfficeAddress",
+          "Name": "OfficeAddress",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": ""
+        },
+        {
+          "Field": "ContactName",
+          "Name": "ContactName",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "ContactNo",
+          "Name": "ContactNo",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "EmailAddress",
+          "Name": "EmailAddress",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "BIN",
+          "Name": "BIN",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "TaxVATNo",
+          "Name": "TaxVATNo",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "CountryId",
+          "Name": "CountryId",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "CurrencyId",
+          "Name": "CurrencyId",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "-"
+        },
+        {
+          "Field": "MaxEmployee",
+          "Name": "MaxEmployee",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "1"
+        },
+        {
+          "Field": "MaxSalary",
+          "Name": "MaxSalary",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": "1"
+        },
+        {
+          "Field": "IsActive",
+          "Name": "IsActive",
+          "Edit": true,
+          "Show": true,
+          "Required": false,
+          "Readonly": false,
+          "Default": false
+        }
+      ]
+    },
+    {
+      "Id": "frm_role",
+      "Columns": [ "Id", "Name" ],
+      "Setup": [
+        {
+          "Field": "Id",
+          "Name": "Id",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Name",
+          "Name": "Name",
+          "Edit": true,
+          "Show": true
+        }
+      ]
+    }
+  ]
+}

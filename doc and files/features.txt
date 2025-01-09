@@ -1,0 +1,2 @@
+1. Business, Manage multiple business
+2. Branch, Manage multiple branch/store/location

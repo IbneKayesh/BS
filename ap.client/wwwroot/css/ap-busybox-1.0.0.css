@@ -1,0 +1,27 @@
+﻿/* Overlay Styling */
+.work-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Busy Container */
+.work-busy-container {
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Spinner Styling */
+.work-spinner i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Message Styling */
+.work-message {
+    font-size: 16px;
+}

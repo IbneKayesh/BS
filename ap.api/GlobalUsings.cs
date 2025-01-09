@@ -1,0 +1,12 @@
+﻿global using ap.api.Models.Database;
+global using Microsoft.Data.SqlClient;
+global using System.Data;
+global using System.Text.Json;
+global using ap.api.Infra;
+global using Microsoft.AspNetCore.Mvc;
+global using ap.api.Models.API;
+global using Newtonsoft.Json;
+global using ap.api.Services;
+global using ap.api.Models.Json;
+global using ap.api.Models;
+global using System.Diagnostics;

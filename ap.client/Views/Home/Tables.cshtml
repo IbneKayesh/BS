@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="card">
+    <div class="card-header">
+        <div id="page-title" class="card-title">
+        </div>
+        <div class="card-buttons">
+            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
+            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="ap-table-responsive">
+            <table id="example1" class="ap-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Age</th>
+                        <th>Birthdate</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="ap-visble-row cursor-pointer" data-class="row-1">
+                        <td><span class="ap-arrow"><i class="fas fa-chevron-down"></i></span> 1</td>
+                        <td>John Doe</td>
+                        <td>johndoe@example.com</td>
+                        <td>********</td>
+                        <td>28</td>
+                        <td>1997-05-15</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr class="ap-hidden-row row-1">
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>janesmith@example.com</td>
+                        <td>********</td>
+                        <td>34</td>
+                        <td>1989-10-22</td>
+                        <td></td>
+                    </tr>
+                    <tr class="ap-hidden-row row-1">
+                        <td>3</td>
+                        <td>Sam Wilson</td>
+                        <td>samwilson@example.com</td>
+                        <td>********</td>
+                        <td>25</td>
+                        <td>1998-03-07</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr class="ap-visble-row cursor-pointer" data-class="row-2">
+                        <td><span class="ap-arrow"><i class="fas fa-chevron-down"></i></span> 4</td>
+                        <td>Linda Johnson</td>
+                        <td>lindajohnson@example.com</td>
+                        <td>********</td>
+                        <td>41</td>
+                        <td>1982-08-19</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr class="ap-hidden-row row-2">
+                        <td>5</td>
+                        <td>David Lee</td>
+                        <td>davidlee@example.com</td>
+                        <td>********</td>
+                        <td>29</td>
+                        <td>1994-12-12</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Emily White</td>
+                        <td>emilywhite@example.com</td>
+                        <td>********</td>
+                        <td>32</td>
+                        <td>1991-06-01</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Michael Brown</td>
+                        <td>michaelbrown@example.com</td>
+                        <td>********</td>
+                        <td>38</td>
+                        <td>1985-11-10</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Amy Davis</td>
+                        <td>amydavis@example.com</td>
+                        <td>********</td>
+                        <td>27</td>
+                        <td>1996-09-24</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>James Taylor</td>
+                        <td>jamestaylor@example.com</td>
+                        <td>********</td>
+                        <td>45</td>
+                        <td>1978-02-13</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Patricia Miller</td>
+                        <td>patriciamiller@example.com</td>
+                        <td>********</td>
+                        <td>36</td>
+                        <td>1987-07-05</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>William Moore</td>
+                        <td>williammoore@example.com</td>
+                        <td>********</td>
+                        <td>55</td>
+                        <td>1968-01-30</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Olivia Taylor</td>
+                        <td>oliviataylor@example.com</td>
+                        <td>********</td>
+                        <td>23</td>
+                        <td>2000-04-12</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Brian Harris</td>
+                        <td>brianharris@example.com</td>
+                        <td>********</td>
+                        <td>40</td>
+                        <td>1983-03-21</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Susan Clark</td>
+                        <td>susanclark@example.com</td>
+                        <td>********</td>
+                        <td>33</td>
+                        <td>1990-09-29</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Daniel Lewis</td>
+                        <td>daniellewis@example.com</td>
+                        <td>********</td>
+                        <td>50</td>
+                        <td>1973-12-18</td>
+                        <td><button class="btn btn-size-sm bg-blue">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="table-container" class="w-100">
+        </div>
+    </div>
+    <div class="card-footer">
+        Sample text
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Tables.js" asp-append-version="true"></script>
+}

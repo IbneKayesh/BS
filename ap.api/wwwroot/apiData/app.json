@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id": "a10",
+    "Name": "Business Solution",
+    "Data": "apps.businesssolution",
+    "MODULE": [
+      {
+        "Name": "Setup",
+        "Path": "setup"
+      },
+      {
+        "Name": "user",
+        "Path": "setup"
+      }
+    ]
+  }
+]

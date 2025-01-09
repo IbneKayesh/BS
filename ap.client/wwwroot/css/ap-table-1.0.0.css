@@ -1,0 +1,56 @@
+/* Table Styling */
+.ap-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Table Header Styling */
+    .ap-table thead {
+        background-color: rgba(44, 110, 47, 0.9);
+        color: white;
+    }
+
+        .ap-table thead th {
+            padding: 5px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+
+    /* Table Row Styling */
+    .ap-table tbody tr {
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+        .ap-table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+    /* Table Data Styling */
+    .ap-table td {
+        padding: 3px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Shadow Effect on Table Rows */
+    .ap-table tbody tr {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .ap-table tbody tr:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+.ap-hidden-row {
+    overflow: hidden;
+    display: none; /* Initially hide the rows */
+    transition: height 0.3s ease; /* Smooth height transition */
+    background-color: #f6f0f9 !important;
+}
+
+.ap-table-responsive {
+    overflow-x: auto;
+    white-space: nowrap;
+}

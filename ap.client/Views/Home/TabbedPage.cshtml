@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            Options
+        </div>
+        <div class="card-buttons">
+            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
+            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <ul class="tabs-list">
+                    <li class="tab-item active" data-tab-id="tab1">
+                        Tab 1 <span class="fas fa-times-circle close-tab"></span>
+                    </li>
+                </ul>
+                <button class="add-tab"><span class="fas fa-plus-circle"></span> Add Tab</button>
+            </div>
+            <div class="tabs-content">
+                <div class="tab-body active" data-tab-id="tab1">
+                    <p>Content for Tab 1</p>
+                </div>
+            </div>
+            <div class="tabs-footer">
+                <p>Footer Content</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        Sample text
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Index.js" asp-append-version="true"></script>
+}

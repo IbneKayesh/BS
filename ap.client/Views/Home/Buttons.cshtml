@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Buttons";
+}
+<div class="card">
+    <div class="card-header">
+        <div id="page-title" class="card-title">
+        </div>
+        <div class="card-buttons">
+            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
+            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <button type="button" class="btn btn-size-sm bg-green">green</button>
+        <button type="button" class="btn btn-size-sm bg-crimson">crimson</button>
+        <button type="button" class="btn btn-size-sm bg-yellow"><i class="fas fa-exclamation-triangle"></i> yellow</button>
+        <button type="button" class="btn btn-size-sm bg-dimgrey">dimgrey</button>
+        <button type="button" class="btn btn-size-sm bg-darkgray">darkgray</button>
+        <button type="button" class="btn btn-size-sm bg-blue"><i class="fas fa-info-circle"></i> blue</button>
+        <button type="button" class="btn btn-size-sm bg-blueviolet"><i class="fas fa-trash"></i> blueviolet</button>
+        <button type="button" class="btn btn-size-sm bg-darkseagreen"><i class="fas fa-check"></i> darkseagreen</button>        
+        <button type="button" class="btn btn-size-sm btn-disabled" disabled><i class="fas fa-ban"></i> Disabled</button>
+    </div>
+    <div id="page-footer" class="card-footer">
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/Buttons.js" asp-append-version="true"></script>
+}

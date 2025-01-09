@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Modal Page";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            Options
+        </div>
+        <div class="card-buttons">
+            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
+            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <button type="button" class="app-button" onclick="GoModalView('page-button', '')"><i class="fas fa-list"></i> Show Modal</button>
+    </div>
+    <div class="card-footer">
+        Sample text
+    </div>
+</div>
+
+<div class="modal" id="my-modal">
+    <div class="modal-header">
+        <div class="modal-title">Modal Title</div>
+        <div class="modal-close">
+            <button type="button" class="btn btn-size-m bg-crimson modal-close-btn-icon" data-modal-id="my-modal"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    <div class="modal-body">
+        Sample content goes here.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-size-m bg-crimson modal-close-btn" data-modal-id="my-modal"><i class="fas fa-times-circle"></i> Close</button>
+        <button type="button" class="btn btn-size-m bg-green modal-ok-btn" data-modal-id="my-modal"><i class="fas fa-check-circle"></i> OK</button>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/Modal.js" asp-append-version="true"></script>
+}

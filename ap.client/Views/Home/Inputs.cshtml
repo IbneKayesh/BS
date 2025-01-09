@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Inputs";
+}
+<div class="card">
+    <div class="card-header">
+        <div id="page-title" class="card-title">
+        </div>
+        <div class="card-buttons">
+            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
+            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-input">
+            <label for="user-name">User Name</label>
+            <input name="user-name" class="user-input" type="text" placeholder="Text" />
+        </div>
+        <div class="form-input">
+            <label for="user-name">User Name</label>
+            <input name="user-name" class="user-input" type="text" readonly placeholder="readonly"/>
+        </div>
+
+        <div class="form-input">
+            <label for="user-name">User Name</label>
+            <input name="user-name" class="user-input" type="text" disabled placeholder="disabled"/>
+        </div>
+
+        <div class="form-input">
+            <label for="user-email">Email</label>
+            <input name="user-email" class="user-input" type="email" placeholder="email" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-password">Password</label>
+            <input name="user-password" class="user-input" type="password" placeholder="password" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-age">Age</label>
+            <input name="user-age" class="user-input" type="number" placeholder="number"/>
+        </div>
+
+        <div class="form-input">
+            <label for="user-birthdate">Birthdate</label>
+            <input name="user-birthdate" class="user-input" type="date" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-datetime">Date & Time</label>
+            <input name="user-datetime" class="user-input" type="datetime-local" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-checkbox">Subscribe</label>
+            <input name="user-checkbox" class="user-input" type="checkbox" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-file">Upload File</label>
+            <input name="user-file" class="user-input" type="file" />
+        </div>
+
+        <div class="form-input">
+            <label for="user-select">Choose Option</label>
+            <select name="user-select" class="user-input">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </select>
+        </div>
+
+
+    </div>
+    <div id="page-footer" class="card-footer">
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/Inputs.js" asp-append-version="true"></script>
+}
