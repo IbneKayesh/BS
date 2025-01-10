@@ -1,4 +1,4 @@
-﻿const Popap = {
+﻿const Popup = {
     // Function to show the notification
     Show: function (type, message) {
         // Create notification container if it doesn't exist
@@ -72,17 +72,36 @@
         const noButton = document.createElement('button');
         noButton.classList.add('btn', 'btn-size-m', 'bg-crimson');
         noButton.innerHTML = '<i class="fas fa-times-circle"></i>No';
+        //noButton.onclick = function () {
+        //    noCallback();
+        //    document.body.removeChild(overlay); // Close the modal
+        //};
+
         noButton.onclick = function () {
-            noCallback();
-            document.body.removeChild(overlay); // Close the modal
+            // Fade out effect before removing
+            overlay.classList.remove('fade-in');
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                document.body.removeChild(overlay);
+                noCallback();
+            }, 400); // Wait for fade-out animation to complete
         };
 
         const yesButton = document.createElement('button');
         yesButton.classList.add('btn', 'btn-size-m', 'bg-green');
         yesButton.innerHTML = '<i class="fas fa-check-circle"></i>Yes';
+        //yesButton.onclick = function () {
+        //    yesCallback();
+        //    document.body.removeChild(overlay); // Close the modal
+        //};
         yesButton.onclick = function () {
-            yesCallback();
-            document.body.removeChild(overlay); // Close the modal
+            // Fade out effect before removing
+            overlay.classList.remove('fade-in');
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                document.body.removeChild(overlay);
+                yesCallback();
+            }, 400); // Wait for fade-out animation to complete
         };
 
         // Append buttons to the container
@@ -96,6 +115,11 @@
 
         // Append overlay to body
         document.body.appendChild(overlay);
+
+        // Add fade-in effect
+        requestAnimationFrame(() => {
+            overlay.classList.add('fade-in');
+        });
     }
 }
 // Example Usage:

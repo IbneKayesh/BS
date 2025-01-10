@@ -1,8 +1,10 @@
-﻿// app key
-const AP_STATE_USER_LOGIN_STATE = 'USER_LOGIN_STATE';
-const AP_STATE_API_AUTH_TOKEN = 'API_AUTH_TOKEN';
-const AP_STATE_API_AUTH_APP_TOKEN = '';
-const AP_STATE_API_BASE_URL = 'http://localhost:5117/api/Xecute/v1';
+﻿//app key
+const AP_STATE_USER_ID = 'AP_STATE_USER_ID';
+const AP_STATE_API_AUTH_TOKEN = 'AP_STATE_API_AUTH_TOKEN';
+const AP_STATE_API_BASE_URL = 'AP_STATE_API_BASE_URL';
+
+const AP_STATE_USER = '';
+const AP_STATE_URLS = '';
 
 const APState = {
 

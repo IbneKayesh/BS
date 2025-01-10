@@ -77,11 +77,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth fade-in and fade-out */
 }
 
 /* Modal styling */
@@ -92,6 +94,8 @@
     width: 600px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8); /* Start slightly smaller */
+    transition: transform 0.3s ease; /* Smooth pop-in effect */
 }
 
 /* Message Styling */
@@ -104,4 +108,21 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+
+
+/* Fade-in class */
+.overlay.fade-in {
+    opacity: 1;
+}
+
+/* Fade-out class */
+.overlay.fade-out {
+    opacity: 0;
+}
+
+/* Modal pop-in effect */
+.confirm-modal.fade-in {
+    transform: scale(1);
 }

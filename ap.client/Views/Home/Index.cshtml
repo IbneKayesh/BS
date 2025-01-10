@@ -1,33 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="card">
-    <div class="card-header">
-        <div class="card-title">
-            Options
-        </div>
-        <div class="card-buttons">
-            <button type="button" class="btn btn-size-m" id="master-api-signal-status"></button>
-            <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoNext('page-index', '')"><i class="fas fa-home"></i></button>
-            <button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="row g-6">
-            <button type="button" class="app-button" onclick="PageGoNext('interface-business', '')"><i class="fas fa-list"></i> Business</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-button', '')"><i class="fas fa-list"></i> Buttons</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-input', '')"><i class="fas fa-list"></i> Inputs</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-table', '')"><i class="fas fa-list"></i> Tables</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-modal', '')"><i class="fas fa-list"></i> Modals</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-busybox', '')"><i class="fas fa-list"></i> Busybox</button>
-            <button type="button" class="app-button" onclick="PageGoNext('page-tab', '')"><i class="fas fa-list"></i> Tab</button>
-            <button type="button" class="app-button"><i class="fas fa-cogs"></i> Settings</button>
-            <button type="button" class="app-button"><i class="fas fa-user"></i> Profile</button>
-            <button type="button" class="app-button"><i class="fas fa-power-off"></i> Logout</button>
-        </div>
-    </div>
-    <div class="card-footer">
-        <span id="master-date-time"></span>
+<div class="card-body">
+    <div class="row g-6">
+        <button type="button" class="app-button" onclick="PageGoNext('interface-business', '')"><i class="fas fa-list"></i> Business</button>
+        <button type="button" class="app-button" onclick="PageGoNext('interface-branch', '')"><i class="fas fa-list"></i> Branch</button>
+        <button type="button" class="app-button" onclick="PageGoNext('page-input', '')"><i class="fas fa-list"></i> Inputs</button>
+        <button type="button" class="app-button" onclick="PageGoNext('page-table', '')"><i class="fas fa-list"></i> Tables</button>
+        <button type="button" class="app-button" onclick="PageGoNext('page-modal', '')"><i class="fas fa-list"></i> Modals</button>
+        <button type="button" class="app-button" onclick="PageGoNext('page-busybox', '')"><i class="fas fa-list"></i> Busybox</button>
+        <button type="button" class="app-button" onclick="PageGoNext('page-tab', '')"><i class="fas fa-list"></i> Tab</button>
+        <button type="button" class="app-button"><i class="fas fa-cogs"></i> Settings</button>
+        <button type="button" class="app-button"><i class="fas fa-user"></i> Profile</button>
+        <button type="button" class="app-button"><i class="fas fa-power-off"></i> Logout</button>
     </div>
 </div>
 

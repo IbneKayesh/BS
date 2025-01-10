@@ -13,14 +13,32 @@
 </head>
 <body>
     <div id="page-master" class="container">
-        @RenderBody()
+
+        <div class="card">
+            <div class="card-header">
+                <div id="page-title" class="card-title">
+                    Options
+                </div>
+                <div id="page-button" class="card-buttons">
+                    <button type="button" class="btn btn-size-m" id="master-api-signal-status"></button>
+                    <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoHome('page-index', this)"><i class="fas fa-home"></i></button>
+                </div>
+            </div>
+            @RenderBody()
+            <div class="card-footer">
+                <span id="master-date-time"></span>
+            </div>
+        </div>
     </div>
+    <!--order should be remine same-->
     <script src="~/jquery/jquery-3.6.0.min.js"></script>
     <script src="~/js/ap-1.0.0.js" asp-append-version="true"></script>
+    <script src="~/js/ap-state-1.0.0.js" asp-append-version="true"></script>
     <script src="~/js/ap-interface-1.0.0.js" asp-append-version="true"></script>
     <script src="~/js/ap-table-1.0.0.js" asp-append-version="true"></script>
     <script src="~/js/ap-notify-1.0.0.js" asp-append-version="true"></script>
     <script src="~/js/ap-busybox-1.0.0.js" asp-append-version="true"></script>
+    <script src="~/js/ap-ajax-1.0.0.js" asp-append-version="true"></script>
     <script src="~/Scripts/Script.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

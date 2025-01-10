@@ -1,33 +1,24 @@
-﻿//function: 5
-function PageGoNext(action, dataid) {
+﻿APState.GlobalSet(AP_STATE_USER_ID, "KAYESH")
+APState.GlobalSet(AP_STATE_API_AUTH_TOKEN, "a10")
+APState.GlobalSet(AP_STATE_API_BASE_URL, "http://localhost:5117/api/Xecute/v1/Perform");
+
+
+if (APState.GlobalGet(AP_STATE_API_BASE_URL)) {
+    $('#master-api-signal-status').addClass('bg-light-green').html('<i class="fa-solid fa-wifi"></i>').prop("title", "Connected");
+} else {
+    $('#master-api-signal-status').addClass('bg-crimson').html('<i class="fa-solid fa-ban"></i>').prop("title", "Not Connected");
+}
+$('#master-date-time').text(new Date());
+
+
+function PageGoHome(action, sender) {
     switch (action) {
-        case 'interface-business':
-            window.location.href = '/Company/Business'
-            break;
         case 'page-index':
-            window.location.href = '/Home/Index'
-            break;
-        case 'page-button':
-            window.location.href = '/Home/Buttons'
-            break;
-        case 'page-input':
-            window.location.href = '/Home/Inputs'
-            break;
-        case 'page-table':
-            window.location.href = '/Home/Tables'
-            break;
-        case 'page-modal':
-            window.location.href = '/Home/Modal'
-            break;
-        case 'page-busybox':
-            window.location.href = '/Home/BusyBox'
-            break;
-        case 'page-tab':
-            window.location.href = '/Home/TabbedPage'
+            window.location.href = '/Home/Index';
             break;
 
         default:
-            alert('Invalid action called');
+            Popup.Show('error', 'Invalid action called');
             break;
     }
 }

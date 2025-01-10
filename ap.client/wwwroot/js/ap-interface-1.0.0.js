@@ -16,19 +16,59 @@
             // Populate the header row
             setup.forEach(column => {
                 const $th = $("<th>")
-                    .addClass(column.Field) // Set the class
+                    .attr('data-id', column.Field) // Set the class
                     .text(column.Name) // Set the text
-                    .css("display", column.Show ? "" : "none"); // Conditionally hide column
+                    .addClass(column.Show ? "" : "d-none") // Set the class
+                //.css("display", column.Show ? "" : "none"); // Conditionally hide column
                 $tr.append($th);
             });
 
             $thead.append($tr);
             $table.append($thead);
-
+            $table.append("<tbody></tbody>");
             // Append the table to the container
             $("#" + containerId).append($table);
         });
     },
+    //Function to fill the table using JSON object list
+    TableFill: function (tableId, dynData) {
+        // Clear existing rows in the table body
+        $(`#${tableId} tbody`).empty();
+
+        // Iterate through the dynamic data
+        dynData.forEach(function (item) {
+            var row = $('<tr></tr>');
+
+            // Iterate through each <th> in the table header
+            $(`#${tableId} thead tr:first-child th`).each(function () {
+                var dataId = $(this).data('id'); // Get the data-id from <th>
+                var thClass = $(this).attr('class') || ''; // Get the class from <th>, if any
+
+                // Get the cell value based on the data-id
+                var cellValue = item[dataId];
+
+                // Handle special cases for `IsActive` and `Action`
+                if (dataId === 'IsActive') {
+                    row.append(`<td class="${thClass}">${cellValue ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
+                } else if (dataId === 'Action') {
+                    row.append(`<td class="${thClass}"><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id="${item.Id}" onclick='PageGoActionEvent("edit-${tableId}", this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-${tableId}", this);'><i class="fas fa-trash"></i></button></td>`);
+                } else {
+                    // Add <td> with matched class and value
+                    row.append(`<td class="${thClass}">${cellValue || ''}</td>`);
+                }
+            });
+
+            // Append the row to the table body
+            $(`#${tableId} tbody`).append(row);
+        });
+    },
+    //Function to fill the table using JSON object list
+    TableRowRemove: function (tableId, dataId) {
+        $(`#${tableId} tbody tr`).filter(function () {
+            return $(this).find('[data-id="' + dataId + '"]').length > 0;
+        }).remove();
+    },
+
     // Function to process the JSON and create the table
     Form: function (containerId, formId, configPath) {
         $.getJSON(configPath, function (data) {
@@ -101,6 +141,41 @@
             return fieldHTML;
         }
 
+    },
+
+    // Function to fill the form using JSON object
+    FormFill: function (containerId, jsonObj) {
+        $(`#${containerId}`).find('input, select, textarea').each(function () {
+            const input = $(this);
+            const name = input.attr('id');
+
+            if (name && jsonObj.hasOwnProperty(name)) {
+                const value = jsonObj[name];
+
+                switch (input.attr('type')) {
+                    case 'checkbox':
+                        // Set the checkbox checked status
+                        input.prop('checked', Boolean(value));
+                        break;
+
+                    case 'radio':
+                        // Set the radio button checked status
+                        if (input.val() === String(value)) {
+                            input.prop('checked', true);
+                        }
+                        break;
+
+                    case 'file':
+                        //ignore
+                        break;
+
+                    default:
+                        // Handle other input types and select elements
+                        input.val(value);
+                        break;
+                }
+            }
+        });
     }
 }
 

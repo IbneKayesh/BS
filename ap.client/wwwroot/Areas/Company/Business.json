@@ -2,7 +2,7 @@
   "Tables": [
     {
       "Id": "tbl_business",
-      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress" ],
+      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress", "ContactName", "ContactNo", "EmailAddress", "BIN", "TaxVATNo", "CountryId", "CurrencyId", "MaxEmployee", "MaxSalary", "IsActive" ],
       "Setup": [
         {
           "Field": "Id",
@@ -14,7 +14,7 @@
           "Field": "BusinessLogo",
           "Name": "Logo",
           "Edit": true,
-          "Show": true
+          "Show": false
         },
         {
           "Field": "BusinessName",
@@ -30,9 +30,75 @@
         },
         {
           "Field": "OfficeAddress",
-          "Name": "OfficeAddress",
+          "Name": "Office Address",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "ContactName",
+          "Name": "Contact Name",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "ContactNo",
+          "Name": "Contact No",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "EmailAddress",
+          "Name": "Email Address",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "BIN",
+          "Name": "BIN",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "TaxVATNo",
+          "Name": "Tax/VAT No",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "CountryId",
+          "Name": "Country",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "CurrencyId",
+          "Name": "Currency",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "MaxEmployee",
+          "Name": "Max Employee",
           "Edit": true,
           "Show": false
+        },
+        {
+          "Field": "MaxSalary",
+          "Name": "Max Salary",
+          "Edit": true,
+          "Show": false
+        },
+        {
+          "Field": "IsActive",
+          "Name": "Status",
+          "Edit": true,
+          "Show": true
+        },
+        {
+          "Field": "Action",
+          "Name": "#",
+          "Edit": false,
+          "Show": true
         }
       ]
     },
@@ -58,7 +124,7 @@
   "Forms": [
     {
       "Id": "frm_business",
-      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress" ],
+      "Columns": [ "Id", "BusinessLogo", "BusinessName", "ShortName", "OfficeAddress", "ContactName", "ContactNo", "EmailAddress", "BIN", "TaxVATNo", "CountryId", "CurrencyId", "MaxEmployee", "MaxSalary", "IsActive" ],
       "Setup": [
         {
           "Field": "Id",
@@ -85,7 +151,7 @@
           "Show": true,
           "Required": true,
           "Readonly": false,
-          "Default": ""
+          "Default": "Woody"
         },
         {
           "Field": "ShortName",
@@ -157,7 +223,7 @@
           "Show": true,
           "Required": false,
           "Readonly": false,
-          "Default": "-"
+          "Default": "BD"
         },
         {
           "Field": "CurrencyId",
@@ -166,7 +232,7 @@
           "Show": true,
           "Required": false,
           "Readonly": false,
-          "Default": "-"
+          "Default": "BDT"
         },
         {
           "Field": "MaxEmployee",

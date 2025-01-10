@@ -1,7 +1,7 @@
 ﻿namespace ap.client.Areas.Company.Controllers
 {
     [Area("Company")]
-    public class BusinessController : BaseController
+    public class BranchController : BaseController
     {
         public IActionResult Index()
         {
