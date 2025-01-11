@@ -130,6 +130,7 @@ body {
 .bg-crimson {
     background-color: crimson; /* Danger red */
 }
+
 .bg-red {
     background-color: red; /* Danger red */
 }
@@ -174,6 +175,9 @@ body {
 /*red color*/
 .text-crimson {
     color: crimson; /* Danger red */
+}
+.text-red {
+    color: red; /* Danger red */
 }
 
 /*yellow*/

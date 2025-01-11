@@ -1,0 +1,5 @@
+﻿{
+  "DB": "MSSQL.BS",
+  "NAME": "Branch",
+  "SQL": "SP_BRANCH"
+}

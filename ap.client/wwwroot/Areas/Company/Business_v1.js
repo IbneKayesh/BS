@@ -8,8 +8,9 @@
 //function: 0
 $(document).ready(function () {
     $('#page-title').text('Business');
-    $('#page-button').append(`<button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i> Business</button>`);
-    $('#table-list-business').ToTable();
+    $('#page-button').append(`<button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i></button>`);
+    InterfaceBuilder.Table("page-list-business", "tbl_business", "/Areas/Company/Business.json");
+    InterfaceBuilder.Form("page-entry-business", "frm_business", "/Areas/Company/Business.json");
 });
 
 //function: 1
@@ -17,14 +18,19 @@ function PageGoClear(action, sender) {
     switch (action) {
         case 'page-entry-business':
             $('#Id').val('0');
+            $('#BusinessLogo').val('');
             $('#BusinessName').val('');
+            $('#ShortName').val('');
             $('#OfficeAddress').val('');
             $('#ContactName').val('');
             $('#ContactNo').val('');
             $('#EmailAddress').val('');
             $('#BIN').val('');
+            $('#TaxVATNo').val('');
+            $('#CountryId').val('-');
             $('#CurrencyId').val('-');
-            $('#StartDate').val('');
+            $('#MaxEmployee').val(1);
+            $('#MaxSalary').val(1);
             $('#IsActive').prop('checked', false);
             Popup.Show('info', 'Page cleared');
             break;
@@ -41,33 +47,76 @@ function PageGoValidateInput(action, sender) {
     let newDataCollection = {};
     switch (action) {
         case 'page-entry-business':
-            isValid &= ValidateInputField('#Id', value => value === '', "Id is required, Please reload this page and try again");
-            isValid &= ValidateInputField('#BusinessName', value => value === '', "Business Name is required");
-            isValid &= ValidateInputField('#CurrencyId', value => value === '' || value === '-' || value === null, "Currency is required");
+            var Id = $('#Id').val().trim();
+            if (Id === '') {
+                Popup.Show("warn", "Business Id is required, Please reload this page and try again");
+                isValid = false;
+            }
+            var BusinessLogo = $('#BusinessLogo').val().trim();
+            var BusinessName = $('#BusinessName').val().trim();
+            if (BusinessName === '') {
+                Popup.Show("warn", "Business name is required");
+                isValid = false;
+            }
+            var ShortName = $('#ShortName').val().trim();
+            var OfficeAddress = $('#OfficeAddress').val().trim();
+            var ContactName = $('#ContactName').val().trim();
+            var ContactNo = $('#ContactNo').val().trim();
+            var EmailAddress = $('#EmailAddress').val().trim();
+            var BIN = $('#BIN').val().trim();
+            var TaxVATNo = $('#TaxVATNo').val().trim();
+            var CountryId = $('#CountryId').val();
+            if (CountryId === '' || CountryId === '-' || CountryId === null) {
+                Popup.Show("warn", "Country is required");
+                isValid = false;
+            }
+            var CurrencyId = $('#CurrencyId').val();
+            if (CurrencyId === '' || CurrencyId === '-' || CurrencyId === null) {
+                Popup.Show("warn", "Currency is required");
+                isValid = false;
+            }
+
+            var MaxEmployee = $('#MaxEmployee').val();
+            if (MaxEmployee === '' || parseInt(MaxEmployee) < 1) {
+                Popup.Show("warn", "Max Salary is required");
+                isValid = false;
+            }
+            var MaxSalary = $('#MaxSalary').val();
+            if (MaxSalary === '' || parseInt(MaxSalary) < 1) {
+                Popup.Show("warn", "Max Employee is required");
+                isValid = false;
+            }
+            var IsActive = $('#IsActive').is(':checked');
+
             newDataCollection = {
-                Id: $('#Id').val().trim(),
-                BusinessName: $('#BusinessName').val().trim(),
-                OfficeAddress: $('#OfficeAddress').val().trim(),
-                ContactName: $('#ContactName').val().trim(),
-                ContactNo: $('#ContactNo').val().trim(),
-                EmailAddress: $('#EmailAddress').val().trim(),
-                BIN: $('#BIN').val().trim(),
-                CurrencyId: $('#CurrencyId').val(),
-                StartDate: $('#StartDate').val() || new Date(),
-                IsActive: $('#IsActive').is(':checked') ? "1" : "0"
+                Id: Id,
+                BusinessLogo: BusinessLogo,
+                BusinessName: BusinessName,
+                ShortName: ShortName,
+                OfficeAddress: OfficeAddress,
+                ContactName: ContactName,
+                ContactNo: ContactNo,
+                EmailAddress: EmailAddress,
+                BIN: BIN,
+                TaxVATNo: TaxVATNo,
+                CountryId: CountryId,
+                CurrencyId: CurrencyId,
+                MaxEmployee: MaxEmployee,
+                MaxSalary: MaxSalary,
+                IsActive: IsActive ? "1" : "0"
             };
-            newDataCollection = BindApiBodyInput('Setup.business', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
+            newDataCollection = BindApiBodyInput('Setup.business', Id === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
             break;
         case 'page-list-business':
             newDataCollection = BindApiBodyInput('Setup.business', 'GETALL', newDataCollection);
             break;
-        case 'delete-business':
+        case 'delete-tbl_business':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
             newDataCollection = BindApiBodyInput('Setup.business', 'DELETE', newDataCollection);
             break;
-        case 'edit-business':
+        case 'edit-tbl_business':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
@@ -84,40 +133,31 @@ function PageGoValidateInput(action, sender) {
 function PageGoBindHTML(action, dynData, sender) {
     switch (action) {
         case 'page-list-business':
-            $('#table-list-business tbody').empty();
-            dynData.forEach(function (item) {
-                var row = $('<tr></tr>');
-                row.append('<td>' + item.BusinessName + '</td>');
-                row.append('<td>' + item.OfficeAddress + '</td>');
-                row.append('<td>' + item.ContactName + '</td>');
-                row.append('<td>' + item.ContactNo + '</td>');
-                row.append('<td>' + item.EmailAddress + '</td>');
-                row.append('<td>' + item.BIN + '</td>');
-                row.append('<td>' + item.CurrencyId + '</td>');
-                row.append('<td>' + FormatStringToDateOnly(item.StartDate) + '</td>');
-                row.append(`<td>${item.IsActive ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
-                row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("edit-business",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-business",this);'><i class="fas fa-trash"></i></button></td>`);
-                $('#table-list-business tbody').append(row);
-            });
+            $('#tbl_business tbody').empty();
+            if (dynData[0].ROWS > 0) {
+                dynData[0].DynamicData.forEach(function (item) {
+                    var row = $('<tr></tr>');
+                    row.append('<td>' + item.Id + '</td>');
+                    row.append('<td>' + item.BusinessLogo + '</td>');
+                    row.append('<td>' + item.BusinessName + '</td>');
+                    row.append('<td>' + item.ShortName + '</td>');
+                    row.append('<td>' + item.OfficeAddress + '</td>');
+                    row.append('<td>' + item.ContactName + '</td>');
+                    row.append('<td>' + item.ContactNo + '</td>');
+                    row.append('<td>' + item.EmailAddress + '</td>');
+                    row.append('<td>' + item.BIN + '</td>');
+                    row.append('<td>' + item.TaxVATNo + '</td>');
+                    row.append('<td>' + item.CountryId + '</td>');
+                    row.append('<td>' + item.CurrencyId + '</td>');
+                    row.append('<td>' + item.MaxEmployee + '</td>');
+                    row.append('<td>' + item.MaxSalary + '</td>');
+                    row.append(`<td>${item.IsActive ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
+                    row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("page-edit-business",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-business",this);'><i class="fas fa-trash"></i></button></td>`);
+                    $('#tbl_business tbody').append(row);
+                });
+            }
 
-            $('#table-list-business').ToTable();
-            break;
-        case 'edit-business':
-            $('#Id').val(dynData.Id);
-            $('#BusinessName').val(dynData.BusinessName);
-            $('#OfficeAddress').val(dynData.OfficeAddress);
-            $('#ContactName').val(dynData.ContactName);
-            $('#ContactNo').val(dynData.ContactNo);
-            $('#EmailAddress').val(dynData.EmailAddress);
-            $('#BIN').val(dynData.BIN);
-            $('#CurrencyId').val(dynData.CurrencyId);
-            $('#StartDate').val(FormatStringToDateOnly(dynData.StartDate)); //for date only
-            $('#IsActive').prop('checked', dynData.IsActive);
-            break;
-        case 'delete-business':
-            $(`#table-list-business tbody tr`).filter(function () {
-                return $(this).find('[data-id="' + dynData + '"]').length > 0;
-            }).remove();
+            $('#tbl_business').ToTable();
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -129,6 +169,7 @@ function PageGoBindHTML(action, dynData, sender) {
 function PageGoNext(action, sender) {
     switch (action) {
         case 'page-index':
+            
             break;
 
         default:
@@ -176,7 +217,9 @@ function PageGoActionEvent(action, sender) {
                         var parsedData = JSON.parse(data);
                         if (parsedData.SUCCESS && parsedData.TABLES > 0) {
                             if (parsedData.EQResult[0].ROWS > 0) {
-                                PageGoBindHTML(action, parsedData.EQResult[0].DynamicData, sender);
+                                InterfaceBuilder.TableFill('tbl_business', parsedData.EQResult[0].DynamicData);
+                                $('#tbl_business').ToTable();
+                                list_business = parsedData.EQResult[0].DynamicData;
                             }
                         } else {
                             Popup.Show("error", parsedData.MESSAGE);
@@ -194,7 +237,7 @@ function PageGoActionEvent(action, sender) {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
             break;
-        case 'delete-business':
+        case 'delete-tbl_business':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -203,7 +246,7 @@ function PageGoActionEvent(action, sender) {
                     success: function (data, status, xhr) {
                         var parsedData = JSON.parse(data);
                         if (parsedData.SUCCESS) {
-                            PageGoBindHTML(action, $(sender).data('id'), sender);
+                            InterfaceBuilder.TableRowRemove('tbl_business', $(sender).data('id'));
                             Popup.Show("ok", "Request submitted successfully");
                         } else {
                             Popup.Show("error", parsedData.MESSAGE);
@@ -221,7 +264,7 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'edit-business':
+        case 'edit-tbl_business':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 AjaxRequestJson({
@@ -229,7 +272,7 @@ function PageGoActionEvent(action, sender) {
                     success: function (data, status, xhr) {
                         var parsedData = JSON.parse(data);
                         if (parsedData.SUCCESS) {
-                            PageGoBindHTML(action, parsedData.EQResult[0].DynamicData[0]);
+                            InterfaceBuilder.FormFill('page-entry-business', parsedData.EQResult[0].DynamicData[0]);
                         } else {
                             Popup.Show("error", parsedData.MESSAGE);
                         }
@@ -254,7 +297,7 @@ function PageGoActionEvent(action, sender) {
 //function: 6
 function PageGoShowModal(action, sender) {
     switch (action) {
-        case 'delete-business':
+        case 'delete-tbl_business':
             Popup.Confirm('Are you sure?', () => PageGoActionEvent(action, sender), () => { });
             break;
 

@@ -24,11 +24,11 @@
 }
 
 /* Different Notification Types */
-.notification-success {
+.notification-ok {
     background-color: #4CAF50; /* Green */
 }
 
-.notification-warning {
+.notification-warn {
     background-color: #FF9800; /* Orange */
 }
 

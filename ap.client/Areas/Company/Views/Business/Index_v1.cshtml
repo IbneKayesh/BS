@@ -6,10 +6,23 @@
         <input type="hidden" id="Id" value="0" />
         <div class="row">
             <!-- row 1 -->
-            <div class="col-md-3 col-12">
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label for="BusinessLogo">Logo:</label>
+                    <input type="file" id="BusinessLogo" accept=".pdf" title="Select a file Business Logo" />
+                    <label for="BusinessLogo" id="fileLabel">Upload Logo</label>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
                 <div class="form-group">
                     <label for="BusinessName">Business Name:</label>
                     <input type="text" id="BusinessName" placeholder="Enter Business Name" title="Enter Business Name" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ShortName">Short Name:</label>
+                    <input type="text" id="ShortName" placeholder="Enter Short Name" title="Enter Short Name" />
                 </div>
             </div>
             <div class="col-md-5 col-12">
@@ -18,6 +31,7 @@
                     <input type="text" id="OfficeAddress" placeholder="Enter Office Address" title="Enter Office Address" />
                 </div>
             </div>
+            <!-- row 2 -->
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="ContactName">Contact Name:</label>
@@ -30,7 +44,6 @@
                     <input type="text" id="ContactNo" placeholder="Enter Contact No" title="Enter Contact No" />
                 </div>
             </div>
-            <!-- row 2 -->
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="EmailAddress">Email Address:</label>
@@ -45,6 +58,24 @@
             </div>
             <div class="col-md-2 col-12">
                 <div class="form-group">
+                    <label for="TaxVATNo">TAX/VAT No:</label>
+                    <input type="text" id="TaxVATNo" placeholder="Enter TAX/VAT No" title="Enter TAX/VAT No" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="CountryId">Country:</label>
+                        <select id="CountryId" title="Select Country">
+                            <option value="-">Select</option>
+                            <option value="BD">BD</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- row 3 -->
+            <div class="col-md-2 col-12">
+                <div class="form-group">
                     <div class="custom-select">
                         <label for="CurrencyId">Currency:</label>
                         <select id="CurrencyId" title="Select Currency">
@@ -56,8 +87,14 @@
             </div>
             <div class="col-md-2 col-12">
                 <div class="form-group">
-                    <label for="StartDate">Start Date:</label>
-                    <input type="date" id="StartDate" placeholder="Enter Start Date" title="Enter Start Date" />
+                    <label for="MaxEmployee">Max Employee:</label>
+                    <input type="number" id="MaxEmployee" placeholder="Enter Max Employee" title="Enter Max Employee" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="MaxSalary">Max Salary:</label>
+                    <input type="number" id="MaxSalary" placeholder="Enter Max Salary" title="Enter Max Salary" />
                 </div>
             </div>
             <div class="col-md-1 col-12">
@@ -71,8 +108,6 @@
                     </div>
                 </div>
             </div>
-            <!-- row 3 -->
-            <!-- row 4 -->
         </div>
     </div>
     <div id="page-actions" class="row-content">
@@ -81,23 +116,6 @@
         <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-business',this);"><i class="fas fa-check-circle"></i> Submit</button>
     </div>
     <div id="page-list-business" class="w-100 ap-table-responsive d-none">
-        <table id="table-list-business" class="ap-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Contact Name</th>
-                    <th>Contact No</th>
-                    <th>Email</th>
-                    <th>BIN</th>
-                    <th>Currency</th>
-                    <th>Start Date</th>
-                    <th>Status</th>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
     </div>
 </div>
 

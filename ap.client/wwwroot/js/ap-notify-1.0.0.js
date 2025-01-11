@@ -16,10 +16,10 @@
         // Add icon and message
         let icon;
         switch (type) {
-            case 'success':
+            case 'ok':
                 icon = '<i class="fas fa-check-circle"></i>';
                 break;
-            case 'warning':
+            case 'warn':
                 icon = '<i class="fas fa-exclamation-circle"></i>';
                 break;
             case 'info':
@@ -123,7 +123,7 @@
     }
 }
 // Example Usage:
-// showNotification('success', 'This is a success message');
-// showNotification('warning', 'This is a warning message');
+// showNotification('ok', 'This is a success message');
+// showNotification('warn', 'This is a warning message');
 // showNotification('info', 'This is an info message');
-// showNotification('danger', 'This is a danger message');
+// showNotification('error', 'This is a danger message');

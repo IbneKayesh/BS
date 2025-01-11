@@ -77,3 +77,71 @@ $(document).ready(function () {
     // Initialize the first tab
     //addTab();
 });
+
+
+// Utility function to validate fields
+function ValidateInputField(fieldSelector, condition, errorMessage) {
+    var field = $(fieldSelector);
+    var value;
+    if (!field.is('select')) {
+        //for select option
+        value = field.val().trim();
+    } else {
+        value = field.val();
+    }
+    // Remove previous error class
+    field.removeClass('input-error');
+
+    if (condition(value)) {
+        field.addClass('input-error');
+        Popup.Show("warn", errorMessage);
+        return false;
+    }
+    return true;
+}
+
+function ClearInputFieldError(divSelector) {
+    $('#' + divSelector).find('input, select, textarea').each(function () {
+        $(this).removeClass('input-error');
+    });
+}
+
+
+
+//for chrome web browser
+function FormatStringToDateOnly(dateString) {
+    var date = new Date(dateString);
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    var day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function FormatStringToDateTime(dateString) {
+    var date = new Date(dateString);
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var day = String(date.getDate()).padStart(2, '0');
+    var hours = date.getHours();
+    var minutes = String(date.getMinutes()).padStart(2, '0');
+    var seconds = String(date.getSeconds()).padStart(2, '0');
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
+//Generate key like Guid
+function GenerateGUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
+
+// get query parameters
+function GetQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
