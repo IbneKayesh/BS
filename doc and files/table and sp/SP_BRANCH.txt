@@ -1,0 +1,155 @@
+USE [bsl]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_BRANCH]    Script Date: 1/12/2025 12:25:41 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[SP_BRANCH]
+    @Action NVARCHAR(50),
+    @Id NVARCHAR(50) = NULL,
+    @BusinessId NVARCHAR(50) = NULL,
+    @BranchName NVARCHAR(50) = NULL,
+    @OfficeAddress NVARCHAR(300) = NULL,
+    @ContactName NVARCHAR(50) = NULL,
+    @ContactNo NVARCHAR(50) = NULL,
+	@EmailAddress NVARCHAR(50) = NULL,
+    @StartDate DATE = NULL,
+    @IsActive BIT = 1,
+    @UserId NVARCHAR(50) = NULL,
+    @P_SUCCESS BIT OUTPUT,
+    @P_MSG NVARCHAR(500) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        IF @Action = 'INSERT'
+        BEGIN
+            SET @Id = NEWID();
+
+            INSERT INTO BRANCH (
+                ID, BUSINESS_ID, BRANCH_NAME, OFFICE_ADDRESS, CONTACT_NAME, CONTACT_NO,
+                EMAIL_ADDRESS, START_DATE, IS_ACTIVE, CREATE_USER, CREATE_DATE, REVISE_NO
+            )
+            VALUES (
+                @Id, @BusinessId, @BranchName, @OfficeAddress, @ContactName, @ContactNo,
+                @EmailAddress, @StartDate, 1, @UserId, GETDATE(), 1
+            );
+
+            SET @P_SUCCESS = 1;
+            SET @P_MSG = 'Insert successful.';
+        END
+        ELSE IF @Action = 'UPDATE'
+        BEGIN
+            IF @Id IS NULL
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'ID is required for update.';
+                RETURN;
+            END
+
+            UPDATE BRANCH
+            SET 
+                BUSINESS_ID = @BusinessId,
+                BRANCH_NAME = @BranchName,
+                OFFICE_ADDRESS = @OfficeAddress,
+                CONTACT_NAME = @ContactName,
+                CONTACT_NO = @ContactNo,
+				EMAIL_ADDRESS = @EmailAddress,
+                START_DATE = @StartDate,
+                IS_ACTIVE = @IsActive,
+                UPDATE_USER = @UserId,
+                UPDATE_DATE = GETDATE(),
+                REVISE_NO = REVISE_NO + 1
+            WHERE ID = @Id;
+
+            IF @@ROWCOUNT = 0
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'No record found to update.';
+            END
+            ELSE
+            BEGIN
+                SET @P_SUCCESS = 1;
+                SET @P_MSG = 'Update successful.';
+            END
+        END
+        ELSE IF @Action = 'DELETE'
+        BEGIN
+            IF @Id IS NULL
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'ID is required for delete.';
+                RETURN;
+            END
+
+            DELETE FROM BRANCH
+            WHERE ID = @Id;
+
+            IF @@ROWCOUNT = 0
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'No record found to delete.';
+            END
+            ELSE
+            BEGIN
+                SET @P_SUCCESS = 1;
+                SET @P_MSG = 'Delete successful.';
+            END
+        END
+        ELSE IF @Action = 'GETBYID'
+        BEGIN
+            IF @Id IS NULL
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'ID is required for get by id.';
+                RETURN;
+            END
+
+            SELECT ID Id, BUSINESS_ID BusinessId, BRANCH_NAME BranchName, OFFICE_ADDRESS OfficeAddress, 
+                CONTACT_NAME ContactName, CONTACT_NO ContactNo, EMAIL_ADDRESS EmailAddress, START_DATE StartDate, 
+                IS_ACTIVE IsActive, REVISE_NO ReviseNo
+            FROM BRANCH
+            WHERE ID = @Id;
+
+            IF @@ROWCOUNT = 0
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'No record found with the specified ID.';
+            END
+            ELSE
+            BEGIN
+                SET @P_SUCCESS = 1;
+                SET @P_MSG = 'Record retrieved successfully.';
+            END
+        END
+        ELSE IF @Action = 'GETALL'
+        BEGIN
+            SELECT ID Id, BUSINESS_ID BusinessId, BRANCH_NAME BranchName, OFFICE_ADDRESS OfficeAddress, 
+                CONTACT_NAME ContactName, CONTACT_NO ContactNo, EMAIL_ADDRESS EmailAddress, START_DATE StartDate, 
+                IS_ACTIVE IsActive, REVISE_NO ReviseNo
+            FROM BRANCH;
+
+            IF @@ROWCOUNT = 0
+            BEGIN
+                SET @P_SUCCESS = 0;
+                SET @P_MSG = 'No records found.';
+            END
+            ELSE
+            BEGIN
+                SET @P_SUCCESS = 1;
+                SET @P_MSG = 'Records retrieved successfully.';
+            END
+        END
+        ELSE
+        BEGIN
+            SET @P_SUCCESS = 0;
+            SET @P_MSG = 'Invalid Action. Use insert, update, delete, getbyid, or getall.';
+        END
+    END TRY
+    BEGIN CATCH
+        SET @P_SUCCESS = 0;
+        SET @P_MSG = ERROR_MESSAGE();
+    END CATCH
+END
