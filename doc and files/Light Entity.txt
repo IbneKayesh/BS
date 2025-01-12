@@ -9,24 +9,6 @@ Salary
 JoiningDate
 IsActive
 
-=Purchase
-PurchaseId (Primary Key)
-SupplierId (Foreign Key)
-BranchId (Foreign Key)
-PurchaseDate
-TotalAmount
-PaymentStatus (Paid, Due)
-PaymentType (Cash, Card, Digital Wallet)
-Notes
-
-=PurchaseDetail
-PurchaseDetailId (Primary Key)
-PurchaseId (Foreign Key)
-ProductId (Foreign Key)
-Quantity
-UnitPrice
-TotalPrice
-
 =Sales
 SaleId (Primary Key)
 CustomerId (Foreign Key, nullable for walk-ins)

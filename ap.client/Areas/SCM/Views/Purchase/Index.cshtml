@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Purchase";
+}
+<div class="card-body">
+    <div id="page-entry-purchase">
+        <input type="hidden" id="Id" value="0" />
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="BranchId">Branch:</label>
+                        <select id="BranchId" title="Select Branch">
+                            <option value="-">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="ContactId">Contact:</label>
+                        <select id="ContactId" title="Select Contact">
+                            <option value="-">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="TrnType">TRN Type:</label>
+                        <select id="TrnType" title="Select Trn Type">
+                            <option value="-">Select</option>
+                            <option value="PO">Purchase Order</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="TrnNo">Trn No:</label>
+                    <input type="text" id="TrnNo" placeholder="Enter Trn No" title="Enter Trn No" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="TrnDate">Trn Date:</label>
+                    <input type="date" id="TrnDate" placeholder="Enter Trn Date" title="Enter Trn Date" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="RefTrn">Ref Trn:</label>
+                    <input type="text" id="RefTrn" placeholder="Enter Ref Trn" title="Enter Ref Trn" />
+                </div>
+            </div>
+            <!-- row 2 -->
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="CostAmount">Cost Amount:</label>
+                    <input type="number" id="CostAmount" placeholder="Enter Cost Amount" title="Enter Cost Amount" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="TotalAmount">Total Amount:</label>
+                    <input type="number" id="TotalAmount" placeholder="Enter Total Amount" title="Enter Total Amount" value="0" readonly />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Paid?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsPaid">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="PoNote">Note:</label>
+                    <input type="text" id="PoNote" placeholder="Enter PO Note" title="Enter PO Note" />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Active?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsActive">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page-actions" class="row-content">
+        <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-purchase',this);"><i class="fas fa-rotate"></i> Clear</button>
+        <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-purchase',this);"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-purchase',this);"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>
+    <div id="page-entry-product">
+        <div class="row">
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ProductId">Product:</label>
+                    <input type="text" id="ProductId" placeholder="Enter Product Id" title="Enter Product Id" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ProductQty">Qty:</label>
+                    <input type="number" id="ProductQty" placeholder="Enter Product Qty" title="Enter Product Qty" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ProductRate">Rate:</label>
+                    <input type="number" id="ProductRate" placeholder="Enter Product Rate" title="Enter Product Rate" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ProductAmount">Amount:</label>
+                    <input type="number" id="ProductAmount" placeholder="Enter Amount" title="Enter Amount" readonly />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ProductNote">Note:</label>
+                    <input type="text" id="ProductNote" placeholder="Enter Note" title="Enter Note" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12 p-10" style="margin-top: 18px;">
+                <button type="button" class="btn btn-size-sm bg-red" title="Add to cart" onclick="PageGoActionEvent('add-to-cart',this);"> Add</button>
+            </div>
+        </div>
+    </div>
+    <div id="page-list-product" class="w-100 ap-table-responsive d-none">
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Areas/SCM/Purchase.js" asp-append-version="true"></script>
+}

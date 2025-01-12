@@ -96,11 +96,12 @@ function PageGoValidateInput(action, sender) {
                 var rowData = {
                     BranchId: $(this).find('td').eq(0).text(),
                     ProductId: $(this).find('td').eq(1).text(), //2 branch name
-                    UnitPrice: $(this).find('td').eq(3).find('input[type="text"]').val(), //4 stock
+                    SalesPrice: $(this).find('td').eq(3).find('input[type="text"]').val(),
+                    StockQty: '0', //4 stock
                     ReorderLevel: $(this).find('td').eq(5).find('input[type="text"]').val(), //6 status
-                    IsActive: $(this).find('td').eq(7).find('input[type="checkbox"]').is(':checked') ? '0': '1'
+                    IsActive: $(this).find('td').eq(7).find('input[type="checkbox"]').is(':checked') ? '1': '0'
                 }
-                var rowDataArray = BindApiBodyInput('inventory.branch-products', 'INSERTALL', rowData);//default return array, api body resource
+                var rowDataArray = BindApiBodyInput('inventory.branch-products', 'INSERT', rowData);//default return array, api body resource
                 newDataCollection_bulk.push(rowDataArray[0]); //from single array pop 1 item and push to bul
             });
             newDataCollection = newDataCollection_bulk; // set bulk as single item
@@ -152,11 +153,11 @@ function PageGoBindHTML(action, dynData, sender) {
                 row.append('<td class="d-none">' + item.BranchId + '</td>');
                 row.append('<td class="d-none">' + item.ProductId + '</td>');
                 row.append('<td>' + item.BranchName + '</td>');
-                row.append(`<td><input type="text" value='${item.UnitPrice}' /></td>`);
+                row.append(`<td><input type="text" value='${item.SalesPrice}' /></td>`);
                 row.append('<td>' + item.StockQty + '</td>');
                 row.append(`<td><input type="text" value='${item.ReorderLevel}' /></td>`);
                 row.append(`<td>${item.IsActive ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
-                row.append(`<td><input type="checkbox" ${item.IsActive ? '' : 'checked'} /></td>`);
+                row.append(`<td><input type="checkbox" ${item.IsActive ? 'checked' : ''} /></td>`);
                 $('#table-branch-products tbody').append(row);
             });
             break;
@@ -423,19 +424,22 @@ function PageGoActionEvent(action, sender) {
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
-                console.log(validationSummary);
                 AjaxRequestJson({
                     data: JSON.stringify(validationSummary.newDataCollection),
                     success: function (data, status, xhr) {
                         var parsedData = JSON.parse(data);
-                        console.log(parsedData);
+                        if (parsedData.SUCCESS && parsedData.TABLES > 0) {
+                            Popup.Show("ok", "Request submitted successfully");
+                            $(`#branch-products`).fadeOut(300);
+                        } else {
+                            Popup.Show("error", parsedData.MESSAGE);
+                        }
                     },
                     error: function (xhr) {
                         Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
                     },
                     complete: function () {
                         BusyBox.Reset(sender);
-                        $('#page-list-products').fadeIn(180);
                     }
                 });
             } else {

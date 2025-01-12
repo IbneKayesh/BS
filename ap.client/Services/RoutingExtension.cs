@@ -20,6 +20,16 @@
                         areaName: "Inventory",
                         pattern: "Inventory/{controller=Home}/{action=Index}/{id?}");
 
+            endpointRoute.MapAreaControllerRoute(
+                        name: "AreaOM",
+                        areaName: "OM",
+                        pattern: "OM/{controller=Home}/{action=Index}/{id?}");
+
+            endpointRoute.MapAreaControllerRoute(
+                        name: "AreaSCM",
+                        areaName: "SCM",
+                        pattern: "SCM/{controller=Home}/{action=Index}/{id?}");
+
             return endpointRoute;
         }
     }

@@ -18,6 +18,9 @@
         case 'interface-contacts':
             window.location.href = '/CRM/Contacts'
             break;
+        case 'interface-purchase':
+            window.location.href = '/SCM/Purchase'
+            break;
         case 'page-button':
             window.location.href = '/Home/Buttons'
             break;
