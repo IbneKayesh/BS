@@ -15,6 +15,9 @@
         case 'interface-products':
             window.location.href = '/Inventory/Products'
             break;
+        case 'interface-contacts':
+            window.location.href = '/CRM/Contacts'
+            break;
         case 'page-button':
             window.location.href = '/Home/Buttons'
             break;

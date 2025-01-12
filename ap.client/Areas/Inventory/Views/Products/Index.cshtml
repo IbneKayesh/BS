@@ -25,7 +25,6 @@
                         <label for="UnitId">Unit:</label>
                         <select id="UnitId" title="Select Unit">
                             <option value="-">Select</option>
-                            <option value="PCS">Pcs</option>
                         </select>
                     </div>
                 </div>
@@ -36,7 +35,6 @@
                         <label for="CategoryId">Category:</label>
                         <select id="CategoryId" title="Select Category">
                             <option value="-">Select</option>
-                            <option value="c1">Category</option>
                         </select>
                     </div>
                 </div>
@@ -47,7 +45,6 @@
                         <label for="BrandId">Brand:</label>
                         <select id="BrandId" title="Select Brand">
                             <option value="-">Select</option>
-                            <option value="c1">Brand</option>
                         </select>
                     </div>
                 </div>
@@ -77,13 +74,48 @@
         <table id="table-list-products" class="ap-table">
             <thead>
                 <tr>
+                    <th>Barcode</th>
                     <th>Name</th>
+                    <th>Unit</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>Contacts</th>
                     <th>Status</th>
                     <th>#</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
+    </div>
+</div>
+
+
+<!--branch-product-->
+<div class="modal" id="branch-products">
+    <div class="modal-header">
+        <div class="modal-title">Modal Title</div>
+        <div class="modal-close">
+            <button type="button" class="btn btn-size-m bg-crimson modal-close-btn-icon" data-modal-id="branch-products"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    <div class="modal-body ap-table-responsive">
+        <table id="table-branch-products" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th>Unit Price</th>
+                    <th>Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-size-m bg-crimson modal-close-btn" data-modal-id="branch-products"><i class="fas fa-times-circle"></i> Close</button>
+        <button type="button" class="btn btn-size-m bg-light-green modal-ok-btn" onclick="PageGoActionEvent('table-branch-products', this)"><i class="fas fa-check-circle"></i> OK</button>
     </div>
 </div>
 

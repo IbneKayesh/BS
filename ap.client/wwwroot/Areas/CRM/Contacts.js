@@ -7,19 +7,22 @@
  ***/
 //function: 0
 $(document).ready(function () {
-    $('#page-title').text('Unit');
-    $('#table-list-unit').ToTable();
-    PageGoActionEvent('UnitId', '');
+    $('#page-title').text('Contacts');
+    $('#table-list-contacts').ToTable();
 });
 
 //function: 1
 function PageGoClear(action, sender) {
     switch (action) {
-        case 'page-entry-unit':
+        case 'page-entry-contacts':
             $('#Id').val('0');
-            $('#UnitName').val('');
-            $('#UnitId').val('-');
-            $('#RelativeFactor').val('1');
+            $('#ContactType').val('-');
+            $('#CategoryId').val('-');
+            $('#ContactName').val('');
+            $('#ContactPerson').val('');
+            $('#ContactNo').val('');
+            $('#EmailAddress').val('');
+            $('#OfficeAddress').val('');
             $('#IsActive').prop('checked', false);
             Popup.Show('info', 'Page cleared');
             break;
@@ -35,38 +38,42 @@ function PageGoValidateInput(action, sender) {
     let isValid = true;
     let newDataCollection = {};
     switch (action) {
-        case 'page-entry-unit':
+        case 'page-entry-contacts':
             isValid &= ValidateInputField('#Id', value => value === '', "Id is required, Please reload this page and try again");
-            isValid &= ValidateInputField('#UnitName', value => value === '', "Unit Name is required");
-            isValid &= ValidateInputField('#UnitId', value => value === '' || value === '-' || value === null, "Parent Unit is required");
-            isValid &= ValidateInputField('#RelativeFactor', value => value === '' || parseInt(value) < 1 || isNaN(value), "Relative Factor is required");
-
+            isValid &= ValidateInputField('#ContactType', value => value === '' || value === '-' || value === null, "Contact Type is required");
+            isValid &= ValidateInputField('#CategoryId', value => value === '' || value === '-' || value === null, "Category is required");
+            isValid &= ValidateInputField('#ContactName', value => value === '', "Contact Name is required");
+            isValid &= ValidateInputField('#ContactPerson', value => value === '', "Contact Person is required");
+            isValid &= ValidateInputField('#ContactNo', value => value === '', "Contact No is required");
+            isValid &= ValidateInputField('#EmailAddress', value => value === '', "Email Address is required");
+            isValid &= ValidateInputField('#OfficeAddress', value => value === '', "Office Address is required");
             newDataCollection = {
                 Id: $('#Id').val().trim(),
-                UnitName: $('#UnitName').val().trim(),
-                UnitId: $('#UnitId').val(),
-                RelativeFactor: $('#RelativeFactor').val().trim(),
+                ContactType: $('#ContactType').val(),
+                CategoryId: $('#CategoryId').val(),
+                ContactName: $('#ContactName').val(),
+                ContactPerson: $('#ContactPerson').val(),
+                ContactNo: $('#ContactNo').val(),
+                EmailAddress: $('#EmailAddress').val(),
+                OfficeAddress: $('#OfficeAddress').val(),
                 IsActive: $('#IsActive').is(':checked') ? "1" : "0"
             };
-            newDataCollection = BindApiBodyInput('inventory.unit', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
+            newDataCollection = BindApiBodyInput('crm.contacts', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
             break;
-        case 'page-list-unit':
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETALL', newDataCollection);
+        case 'page-list-contacts':
+            newDataCollection = BindApiBodyInput('crm.contacts', 'GETALL', newDataCollection);
             break;
-        case 'delete-unit':
+        case 'delete-contacts':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('inventory.unit', 'DELETE', newDataCollection);
+            newDataCollection = BindApiBodyInput('crm.contacts', 'DELETE', newDataCollection);
             break;
-        case 'edit-unit':
+        case 'edit-contacts':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETBYID', newDataCollection);
-            break;
-        case 'UnitId':
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETALLPARENT', newDataCollection);
+            newDataCollection = BindApiBodyInput('crm.contacts', 'GETBYID', newDataCollection);
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -78,29 +85,37 @@ function PageGoValidateInput(action, sender) {
 //function: 3
 function PageGoBindHTML(action, dynData, sender) {
     switch (action) {
-        case 'page-list-unit':
-            $('#table-list-unit tbody').empty();
+        case 'page-list-contacts':
+            $('#table-list-contacts tbody').empty();
             dynData.forEach(function (item) {
                 var row = $('<tr></tr>');
-                row.append('<td>' + item.UnitName + '</td>');
-                row.append('<td>' + item.ParentUnitName + '</td>');
-                row.append('<td>' + item.RelativeFactor + '</td>');
+                row.append('<td>' + item.ContactType + '</td>');
+                row.append('<td>' + item.CategoryId + '</td>');
+                row.append('<td>' + item.ContactName + '</td>');
+                row.append('<td>' + item.ContactPerson + '</td>');
+                row.append('<td>' + item.ContactNo + '</td>');
+                row.append('<td>' + item.EmailAddress + '</td>');
+                row.append('<td>' + item.OfficeAddress + '</td>');
                 row.append(`<td>${item.IsActive ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
-                row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("edit-unit",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-unit",this);'><i class="fas fa-trash"></i></button></td>`);
-                $('#table-list-unit tbody').append(row);
+                row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("edit-contacts",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-contacts",this);'><i class="fas fa-trash"></i></button></td>`);
+                $('#table-list-contacts tbody').append(row);
             });
 
-            $('#table-list-unit').ToTable();
+            $('#table-list-contacts').ToTable();
             break;
-        case 'edit-unit':
+        case 'edit-contacts':
             $('#Id').val(dynData.Id);
-            $('#UnitName').val(dynData.UnitName);
-            $('#UnitId').val(dynData.UnitId);
-            $('#RelativeFactor').val(dynData.RelativeFactor);
+            $('#ContactType').val(dynData.ContactType);
+            $('#CategoryId').val(dynData.CategoryId);
+            $('#ContactName').val(dynData.ContactName);
+            $('#ContactPerson').val(dynData.ContactPerson);
+            $('#ContactNo').val(dynData.ContactNo);
+            $('#EmailAddress').val(dynData.EmailAddress);
+            $('#OfficeAddress').val(dynData.OfficeAddress);
             $('#IsActive').prop('checked', dynData.IsActive);
             break;
-        case 'delete-unit':
-            $(`#table-list-unit tbody tr`).filter(function () {
+        case 'delete-contacts':
+            $(`#table-list-contacts tbody tr`).filter(function () {
                 return $(this).find('[data-id="' + dynData + '"]').length > 0;
             }).remove();
             break;
@@ -125,7 +140,7 @@ function PageGoNext(action, sender) {
 //function: 5
 function PageGoActionEvent(action, sender) {
     switch (action) {
-        case 'page-entry-unit':
+        case 'page-entry-contacts':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -151,7 +166,7 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'page-list-unit':
+        case 'page-list-contacts':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -172,14 +187,14 @@ function PageGoActionEvent(action, sender) {
                     },
                     complete: function () {
                         BusyBox.Reset(sender);
-                        $('#page-list-unit').fadeIn(180);
+                        $('#page-list-contacts').fadeIn(180);
                     }
                 });
             } else {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
             break;
-        case 'delete-unit':
+        case 'delete-contacts':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -206,7 +221,7 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'edit-unit':
+        case 'edit-contacts':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 AjaxRequestJson({
@@ -230,45 +245,6 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'UnitId':
-            const UnitIdDdl = $('#UnitId');
-            UnitIdDdl.empty();
-            UnitIdDdl.append($('<option>', {
-                value: '-',
-                text: "-Select-"
-            }));
-            UnitIdDdl.append($('<option>', {
-                value: '0',
-                text: "No Parent"
-            }));
-            var validationSummary = PageGoValidateInput(action, sender);
-            if (validationSummary.isValid) {
-                AjaxRequestJson({
-                    data: JSON.stringify(validationSummary.newDataCollection),
-                    success: function (data, status, xhr) {
-                        var parsedData = JSON.parse(data);
-                        if (parsedData.SUCCESS) {
-                            parsedData.EQResult[0].DynamicData.forEach(function (item) {
-                                UnitIdDdl.append($('<option>', {
-                                    value: item.Id,
-                                    text: item.UnitName
-                                }));
-                            });
-
-                        } else {
-                            Popup.Show("error", parsedData.MESSAGE);
-                        }
-                    },
-                    error: function (xhr) {
-                        Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
-                    },
-                    complete: function () {
-                    }
-                });
-            } else {
-                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
-            }
-            break;
         default:
             Popup.Show('error', 'Invalid action called');
             break;
@@ -278,7 +254,7 @@ function PageGoActionEvent(action, sender) {
 //function: 6
 function PageGoShowModal(action, sender) {
     switch (action) {
-        case 'delete-unit':
+        case 'delete-contacts':
             Popup.Confirm('Are you sure?', () => PageGoActionEvent(action, sender), () => { });
             break;
 

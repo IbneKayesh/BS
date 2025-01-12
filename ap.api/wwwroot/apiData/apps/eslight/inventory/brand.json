@@ -1,0 +1,5 @@
+﻿{
+  "DB": "MSSQL.BS",
+  "NAME": "Brand",
+  "SQL": "SP_BRAND"
+}

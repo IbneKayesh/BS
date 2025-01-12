@@ -11,6 +11,10 @@
       {
         "Name": "inventory",
         "Path": "inventory"
+      },
+      {
+        "Name": "crm",
+        "Path": "crm"
       }
     ]
   }

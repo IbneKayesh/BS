@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Contacts";
+}
+
+<div class="card-body">
+    <div id="page-entry-contacts">
+        <input type="hidden" id="Id" value="0" />
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="ContactType">Contact Type:</label>
+                        <select id="ContactType" title="Select Contact Type">
+                            <option value="-">Select</option>
+                            <option value="CUSTOMER">CUSTOMER</option>
+                            <option value="SUPPLIER">SUPPLIER</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="CategoryId">Category:</label>
+                        <select id="CategoryId" title="Select Category">
+                            <option value="-">Select</option>
+                            <option value="Any">Any</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="form-group">
+                    <label for="ContactName">Contact Name:</label>
+                    <input type="text" id="ContactName" placeholder="Enter Contact Name" title="Enter Contact Name" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ContactPerson">Contact Person:</label>
+                    <input type="text" id="ContactPerson" placeholder="Enter Contact Person" title="Enter Contact Person" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="ContactNo">Contact No:</label>
+                    <input type="text" id="ContactNo" placeholder="Enter Contact No" title="Enter Contact No" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="EmailAddress">Email Address:</label>
+                    <input type="text" id="EmailAddress" placeholder="Enter Email Address" title="Enter Email Address" />
+                </div>
+            </div>
+            <!-- row 2 -->
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="OfficeAddress">Office Address:</label>
+                    <input type="text" id="OfficeAddress" placeholder="Enter Office Address" title="Enter Office Address" />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Active?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsActive">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- row 3 -->
+            <!-- row 4 -->
+        </div>
+    </div>
+    <div id="page-actions" class="row-content">
+        <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-contacts',this);"><i class="fas fa-rotate"></i> Clear</button>
+        <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-contacts',this);"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-contacts',this);"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>
+    <div id="page-list-contacts" class="w-100 ap-table-responsive d-none">
+        <table id="table-list-contacts" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Person</th>
+                    <th>Contact No</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Areas/CRM/Contacts.js" asp-append-version="true"></script>
+}

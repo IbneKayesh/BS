@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#page-title').text('Branch');
     $('#page-button').append(`<button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i> Branch</button>`);
     $('#table-list-branch').ToTable();
+    PageGoActionEvent('BusinessId','');
 });
 
 //function: 1
@@ -65,6 +66,9 @@ function PageGoValidateInput(action, sender) {
             }
             newDataCollection = BindApiBodyInput('company.branch', 'GETBYID', newDataCollection);
             break;
+        case 'BusinessId':
+            newDataCollection = BindApiBodyInput('company.business', 'GETALL', newDataCollection);
+            break;
         default:
             Popup.Show('error', 'Invalid action called');
             break;
@@ -79,7 +83,7 @@ function PageGoBindHTML(action, dynData, sender) {
             $('#table-list-branch tbody').empty();
             dynData.forEach(function (item) {
                 var row = $('<tr></tr>');
-                row.append('<td>' + item.BusinessId + '</td>');
+                row.append('<td>' + item.BusinessName + '</td>');
                 row.append('<td>' + item.BranchName + '</td>');
                 row.append('<td>' + item.OfficeAddress + '</td>');
                 row.append('<td>' + item.ContactName + '</td>');
@@ -232,6 +236,41 @@ function PageGoActionEvent(action, sender) {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
 
+            break;
+        case 'BusinessId':
+            const BusinessIdDdl = $('#BusinessId');
+            BusinessIdDdl.empty();
+            BusinessIdDdl.append($('<option>', {
+                value: '-',
+                text: "-Select-"
+            }));
+            var validationSummary = PageGoValidateInput(action, sender);
+            if (validationSummary.isValid) {
+                AjaxRequestJson({
+                    data: JSON.stringify(validationSummary.newDataCollection),
+                    success: function (data, status, xhr) {
+                        var parsedData = JSON.parse(data);
+                        if (parsedData.SUCCESS) {
+                            parsedData.EQResult[0].DynamicData.forEach(function (item) {
+                                BusinessIdDdl.append($('<option>', {
+                                    value: item.Id,
+                                    text: item.BusinessName
+                                }));
+                            });
+
+                        } else {
+                            Popup.Show("error", parsedData.MESSAGE);
+                        }
+                    },
+                    error: function (xhr) {
+                        Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
+                    },
+                    complete: function () {
+                    }
+                });
+            } else {
+                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
+            }
             break;
         default:
             Popup.Show('error', 'Invalid action called');
