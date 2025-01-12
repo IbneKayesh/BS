@@ -1,16 +1,16 @@
 ﻿[
   {
-    "Id": "a10",
-    "Name": "Business Solution",
-    "Data": "apps.businesssolution",
+    "Id": "ESL",
+    "Name": "Easy Start - Light",
+    "Data": "apps.eslight",
     "MODULE": [
       {
-        "Name": "Setup",
-        "Path": "setup"
+        "Name": "company",
+        "Path": "company"
       },
       {
-        "Name": "user",
-        "Path": "setup"
+        "Name": "inventory",
+        "Path": "inventory"
       }
     ]
   }

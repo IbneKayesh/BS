@@ -1,22 +1,22 @@
-﻿//function: 0
+﻿/***
+    Author : Md. Ibne Kayesh
+    License: MIT
+    Version : 1.0.0
+    Date: Oct - 2024
+    Inspired from Bootstrap, Tailwind CSS and jQuery
+ ***/
+//function: 0
 $(document).ready(function () {
-    $('#page-title').text('Branch');
-    $('#page-button').append(`<button type="button" class="btn btn-size-m bg-darkseagreen"><i class="fas fa-cog"></i> Branch</button>`);
-    $('#table-list-branch').ToTable();
+    $('#page-title').text('Products');
+    $('#table-list-product').ToTable();
 });
 
 //function: 1
 function PageGoClear(action, sender) {
     switch (action) {
-        case 'page-entry-branch':
+        case 'page-entry-product':
             $('#Id').val('0');
-            $('#BusinessId').val('-');
-            $('#BranchName').val('');
-            $('#OfficeAddress').val('');
-            $('#ContactName').val('');
-            $('#ContactNo').val('');
-            $('#EmailAddress').val('');
-            $('#StartDate').val('');
+            $('#ProductName').val('');
             $('#IsActive').prop('checked', false);
             Popup.Show('info', 'Page cleared');
             break;
@@ -32,38 +32,30 @@ function PageGoValidateInput(action, sender) {
     let isValid = true;
     let newDataCollection = {};
     switch (action) {
-        case 'page-entry-branch':
+        case 'page-entry-product':
             isValid &= ValidateInputField('#Id', value => value === '', "Id is required, Please reload this page and try again");
-            isValid &= ValidateInputField('#BusinessId', value => value === '' || value === '-' || value === null, "Business is required");
-            isValid &= ValidateInputField('#BranchName', value => value === '', "Branch Name is required");
-            
+            isValid &= ValidateInputField('#ProductName', value => value === '', "Product Name is required");
             newDataCollection = {
                 Id: $('#Id').val().trim(),
-                BusinessId: $('#BusinessId').val(),
-                BranchName: $('#BranchName').val().trim(),
-                OfficeAddress: $('#OfficeAddress').val().trim(),
-                ContactName: $('#ContactName').val().trim(),
-                ContactNo: $('#ContactNo').val().trim(),
-                EmailAddress: $('#EmailAddress').val().trim(),
-                StartDate: $('#StartDate').val() || new Date(),
+                ProductName: $('#ProductName').val().trim(),
                 IsActive: $('#IsActive').is(':checked') ? "1" : "0"
             };
-            newDataCollection = BindApiBodyInput('company.branch', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
+            newDataCollection = BindApiBodyInput('inventory.products', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
             break;
-        case 'page-list-branch':
-            newDataCollection = BindApiBodyInput('company.branch', 'GETALL', newDataCollection);
+        case 'page-list-product':
+            newDataCollection = BindApiBodyInput('inventory.products', 'GETALL', newDataCollection);
             break;
-        case 'delete-branch':
+        case 'delete-product':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('company.branch', 'DELETE', newDataCollection);
+            newDataCollection = BindApiBodyInput('inventory.products', 'DELETE', newDataCollection);
             break;
-        case 'edit-branch':
+        case 'edit-product':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('company.branch', 'GETBYID', newDataCollection);
+            newDataCollection = BindApiBodyInput('inventory.products', 'GETBYID', newDataCollection);
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -75,35 +67,25 @@ function PageGoValidateInput(action, sender) {
 //function: 3
 function PageGoBindHTML(action, dynData, sender) {
     switch (action) {
-        case 'page-list-branch':
-            $('#table-list-branch tbody').empty();
+        case 'page-list-product':
+            $('#table-list-product tbody').empty();
             dynData.forEach(function (item) {
                 var row = $('<tr></tr>');
-                row.append('<td>' + item.BusinessId + '</td>');
-                row.append('<td>' + item.BranchName + '</td>');
-                row.append('<td>' + item.OfficeAddress + '</td>');
-                row.append('<td>' + item.ContactName + '</td>');
-                row.append('<td>' + item.ContactNo + '</td>');
-                row.append('<td>' + item.EmailAddress + '</td>');
-                row.append('<td>' + FormatStringToDateOnly(item.StartDate) + '</td>');
+                row.append('<td>' + item.ProductName + '</td>');
                 row.append(`<td>${item.IsActive ? '<i class="fas fa-circle-check text-green"></i>' : '<i class="fas fa-circle-xmark text-red"></i>'}</td>`);
-                row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("edit-branch",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-branch",this);'><i class="fas fa-trash"></i></button></td>`);
-                $('#table-list-branch tbody').append(row);
+                row.append(`<td><button type="button" class="btn btn-size-sm bg-blue mr-2" data-id='${item.Id}' onclick='PageGoActionEvent("edit-product",this);'><i class="fas fa-edit text-white"></i></button><button type="button" class="btn btn-size-sm bg-red mr-2" data-id="${item.Id}" onclick='PageGoShowModal("delete-product",this);'><i class="fas fa-trash"></i></button></td>`);
+                $('#table-list-product tbody').append(row);
             });
+
+            $('#table-list-product').ToTable();
             break;
-        case 'edit-branch':
+        case 'edit-product':
             $('#Id').val(dynData.Id);
-            $('#BusinessId').val(dynData.BusinessId);
-            $('#BranchName').val(dynData.BranchName);
-            $('#OfficeAddress').val(dynData.OfficeAddress);
-            $('#ContactName').val(dynData.ContactName);
-            $('#ContactNo').val(dynData.ContactNo);
-            $('#EmailAddress').val(dynData.EmailAddress);
-            $('#StartDate').val(FormatStringToDateOnly(dynData.StartDate)); //for date only
+            $('#ProductName').val(dynData.ProductName);
             $('#IsActive').prop('checked', dynData.IsActive);
             break;
-        case 'delete-branch':
-            $(`#table-list-branch tbody tr`).filter(function () {
+        case 'delete-product':
+            $(`#table-list-product tbody tr`).filter(function () {
                 return $(this).find('[data-id="' + dynData + '"]').length > 0;
             }).remove();
             break;
@@ -128,7 +110,7 @@ function PageGoNext(action, sender) {
 //function: 5
 function PageGoActionEvent(action, sender) {
     switch (action) {
-        case 'page-entry-branch':
+        case 'page-entry-product':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -154,7 +136,7 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'page-list-branch':
+        case 'page-list-product':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -175,14 +157,14 @@ function PageGoActionEvent(action, sender) {
                     },
                     complete: function () {
                         BusyBox.Reset(sender);
-                        $('#page-list-branch').fadeIn(180);
+                        $('#page-list-product').fadeIn(180);
                     }
                 });
             } else {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
             break;
-        case 'delete-branch':
+        case 'delete-product':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 BusyBox.Busy(sender, '');
@@ -209,7 +191,7 @@ function PageGoActionEvent(action, sender) {
             }
 
             break;
-        case 'edit-branch':
+        case 'edit-product':
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
                 AjaxRequestJson({
@@ -242,7 +224,7 @@ function PageGoActionEvent(action, sender) {
 //function: 6
 function PageGoShowModal(action, sender) {
     switch (action) {
-        case 'delete-branch':
+        case 'delete-product':
             Popup.Confirm('Are you sure?', () => PageGoActionEvent(action, sender), () => { });
             break;
 

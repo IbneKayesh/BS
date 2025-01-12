@@ -20,8 +20,10 @@
                     Options
                 </div>
                 <div id="page-button" class="card-buttons">
-                    <button type="button" class="btn btn-size-m" id="master-api-signal-status"></button>
-                    <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoHome('page-index', this)"><i class="fas fa-home"></i></button>
+                    <button type="button" class="btn btn-size-m bg-darkseagreen" onclick="PageGoHome('page-index', this)" title="Home Page"><i class="fas fa-home"></i></button>
+                    <button type="button" class="btn btn-size-m bg-darkseagreen" id="master-user" title="User"><i class="fas fa-user"></i></button>
+                    <button type="button" class="btn btn-size-m bg-darkseagreen" id="master-notifications" title="Notifications"><i class="fas fa-bell"></i></button>
+                    <button type="button" class="btn btn-size-m" id="master-api-signal-status" title="API Connections"></button>
                 </div>
             </div>
             @RenderBody()

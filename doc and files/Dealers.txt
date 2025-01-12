@@ -1,0 +1,8 @@
+- Customer Credit Control
+- Expired Products
+- Seasonal Trends Products
+- Reward points system for repeat customers
+- Save customer details for personalized promotions
+- GST/VAT Calculation
+- Link expenses with sales to calculate accurate profit margins.
+- Automate cost allocation for specific sales (e.g., delivery costs per order).

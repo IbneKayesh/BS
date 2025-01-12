@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Category";
+}
+
+<div class="card-body">
+    <div id="page-entry-category">
+        <input type="hidden" id="Id" value="0" />
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <label for="CategoryName">Category Name:</label>
+                    <input type="text" id="CategoryName" placeholder="Enter Category Name" title="Enter Category Name" />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Active?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsActive">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- row 2 -->
+            <!-- row 3 -->
+            <!-- row 4 -->
+        </div>
+    </div>
+    <div id="page-actions" class="row-content">
+        <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-category',this);"><i class="fas fa-rotate"></i> Clear</button>
+        <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-category',this);"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-category',this);"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>
+    <div id="page-list-category" class="w-100 ap-table-responsive d-none">
+        <table id="table-list-category" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Areas/Inventory/Category.js" asp-append-version="true"></script>
+}

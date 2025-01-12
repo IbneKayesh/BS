@@ -1,0 +1,80 @@
+=Employee
+EmployeeId (Primary Key)
+BranchId (Foreign Key)
+Name
+Position
+Phone
+Email
+Salary
+JoiningDate
+IsActive
+
+=Purchase
+PurchaseId (Primary Key)
+SupplierId (Foreign Key)
+BranchId (Foreign Key)
+PurchaseDate
+TotalAmount
+PaymentStatus (Paid, Due)
+PaymentType (Cash, Card, Digital Wallet)
+Notes
+
+=PurchaseDetail
+PurchaseDetailId (Primary Key)
+PurchaseId (Foreign Key)
+ProductId (Foreign Key)
+Quantity
+UnitPrice
+TotalPrice
+
+=Sales
+SaleId (Primary Key)
+CustomerId (Foreign Key, nullable for walk-ins)
+BranchId (Foreign Key)
+SaleDate
+TotalAmount
+Discount
+PaymentType (Cash, Card, Digital Wallet)
+PaymentStatus (Paid, Due)
+Notes
+
+=SalesDetail
+SalesDetailId (Primary Key)
+SaleId (Foreign Key)
+ProductId (Foreign Key)
+Quantity
+UnitPrice
+TotalPrice
+Discount
+
+=Stock Adjustment
+AdjustmentId (Primary Key)
+BranchId (Foreign Key)
+ProductId (Foreign Key)
+AdjustmentDate
+QuantityChange (Positive or Negative)
+Reason
+
+=Payments
+PaymentId (Primary Key)
+SaleId (Foreign Key, nullable for advance payments)
+PurchaseId (Foreign Key, nullable for due payments)
+CustomerId (Foreign Key, nullable for due/advance receive)
+Amount
+PaymentDate
+PaymentType (Cash, Card, Digital Wallet)
+PaymentPurpose (Due, Advance, etc.)
+Notes
+
+=Expenses
+ExpenseId (Primary Key)
+BranchId (Foreign Key)
+ExpenseCategoryId (Foreign Key)
+Amount
+ExpenseDate
+Notes
+
+=ExpenseCategory
+ExpenseCategoryId (Primary Key)
+Name
+Description

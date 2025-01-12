@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Unit";
+}
+
+<div class="card-body">
+    <div id="page-entry-unit">
+        <input type="hidden" id="Id" value="0" />
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <label for="UnitName">Unit Name:</label>
+                    <input type="text" id="UnitName" placeholder="Enter Unit Name" title="Enter Unit Name" />
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="custom-select">
+                            <label for="UnitId">Unit:</label>
+                            <select id="UnitId" title="Select Unit">
+                                <option value="-">Select</option>
+                                <option value="0">Master</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <label for="RelativeFactor">Relative Factor:</label>
+                    <input type="text" id="RelativeFactor" placeholder="Enter Relative Factor" title="Enter Relative Factor" />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Active?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsActive">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- row 2 -->
+            <!-- row 3 -->
+            <!-- row 4 -->
+        </div>
+    </div>
+    <div id="page-actions" class="row-content">
+        <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-unit',this);"><i class="fas fa-rotate"></i> Clear</button>
+        <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-unit',this);"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-unit',this);"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>
+    <div id="page-list-unit" class="w-100 ap-table-responsive d-none">
+        <table id="table-list-unit" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Unit Name</th>
+                    <th>Relative Factor</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Areas/Inventory/Unit.js" asp-append-version="true"></script>
+}

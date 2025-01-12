@@ -6,6 +6,15 @@
         case 'interface-branch':
             window.location.href = '/Company/Branch'
             break;
+        case 'interface-category':
+            window.location.href = '/Inventory/Category'
+            break;
+        case 'interface-unit':
+            window.location.href = '/Inventory/Unit'
+            break;
+        case 'interface-products':
+            window.location.href = '/Inventory/Products'
+            break;
         case 'page-button':
             window.location.href = '/Home/Buttons'
             break;

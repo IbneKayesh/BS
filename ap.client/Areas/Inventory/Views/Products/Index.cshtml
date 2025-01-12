@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="card-body">
+    <div id="page-entry-products">
+        <input type="hidden" id="Id" value="0" />
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <label for="BarCode">Bar Code:</label>
+                    <input type="text" id="BarCode" placeholder="Enter Bar Code" title="Enter Bar Code" />
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="form-group">
+                    <label for="ProductName">Product Name:</label>
+                    <input type="text" id="ProductName" placeholder="Enter Product Name" title="Enter Product Name" />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="UnitId">Unit:</label>
+                        <select id="UnitId" title="Select Unit">
+                            <option value="-">Select</option>
+                            <option value="PCS">Pcs</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="CategoryId">Category:</label>
+                        <select id="CategoryId" title="Select Category">
+                            <option value="-">Select</option>
+                            <option value="c1">Category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="BrandId">Brand:</label>
+                        <select id="BrandId" title="Select Brand">
+                            <option value="-">Select</option>
+                            <option value="c1">Brand</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Active?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsActive">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- row 2 -->
+            <!-- row 3 -->
+            <!-- row 4 -->
+        </div>
+    </div>
+    <div id="page-actions" class="row-content">
+        <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-products',this);"><i class="fas fa-rotate"></i> Clear</button>
+        <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-products',this);"><i class="fas fa-search"></i> Search</button>
+        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-products',this);"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>
+    <div id="page-list-products" class="w-100 ap-table-responsive d-none">
+        <table id="table-list-products" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Areas/Inventory/Products.js" asp-append-version="true"></script>
+}

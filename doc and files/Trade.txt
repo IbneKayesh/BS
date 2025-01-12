@@ -1,0 +1,47 @@
+==Entry==
+- Business
+- Branch
+- Bulk Purchase
+- Purchase Return
+- Retail Sales [Quick and accurate billing process]
+- Sales Return
+- Stock [Real-time updates on stock levels]
+- Stock Adjustment
+- Due Payment
+- Advance Payment
+- Due Receive
+- Daily Expenses
+- Employee Tracking [Duty, Overtime, Bonus, Deduction]
+
+==Entry Advance==
+- Barcode Scanning [Integration with barcode scanners for fast product lookup and checkout.]
+- Multiple Payment Options [Support for cash, card, mobile payments (e.g., digital wallets)]
+- Discounts [Apply item-level or bill-level discounts]
+- Multiple POS
+
+==Report==
+- Purchase Report [Supplier wise, Product wise]
+- Sales Report [Customer wise, Product wise, Daily, Weekly, Monthly]
+- Stock [Product wise, Category wise, Amount wise]
+- Payment [Due, Advance]
+- Receive [Due]
+- Expense Summary [Daily, Monthly.]
+- Salary Payslip Generation
+
+==Report Advance==
+- Top Supplier
+- Customers [Top, Repeat, Non-Repeat]
+- Top-selling Products
+- Low-selling Products
+- Low Stock Product
+- Income Statement [Summarize total revenue and expenses to calculate the store's net profit or loss for a period. Include a breakdown of income and expense categories.]
+- Peak Hours
+- Customer Choice
+- Sales Revenue [Automatically log daily, weekly, and monthly sales into the income ledger.]
+- Other Income [Record additional income sources (e.g., rental income, partnerships, or refunds).]
+- Profit/Loss Report [Compare revenue against expenses to assess financial health.]
+- Cash Flow Report [Show inflows (sales revenue, loans, etc.) and outflows (rent, salaries, expenses) over time.]
+- Balance Sheet [Present a snapshot of assets (inventory, cash) and liabilities (loans, unpaid bills).]
+
+==User Roles & Access Control==
+- Different levels of access for admin, cashier, and manager roles.

@@ -1,0 +1,5 @@
+﻿{
+  "DB": "MSSQL.BS",
+  "NAME": "Category",
+  "SQL": "SP_CATEGORY"
+}

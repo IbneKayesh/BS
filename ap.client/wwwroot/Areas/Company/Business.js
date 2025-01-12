@@ -56,22 +56,22 @@ function PageGoValidateInput(action, sender) {
                 StartDate: $('#StartDate').val() || new Date(),
                 IsActive: $('#IsActive').is(':checked') ? "1" : "0"
             };
-            newDataCollection = BindApiBodyInput('Setup.business', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
+            newDataCollection = BindApiBodyInput('company.business', $('#Id').val().trim() === '0' ? 'INSERT' : 'UPDATE', newDataCollection);
             break;
         case 'page-list-business':
-            newDataCollection = BindApiBodyInput('Setup.business', 'GETALL', newDataCollection);
+            newDataCollection = BindApiBodyInput('company.business', 'GETALL', newDataCollection);
             break;
         case 'delete-business':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('Setup.business', 'DELETE', newDataCollection);
+            newDataCollection = BindApiBodyInput('company.business', 'DELETE', newDataCollection);
             break;
         case 'edit-business':
             newDataCollection = {
                 Id: $(sender).data('id')
             }
-            newDataCollection = BindApiBodyInput('Setup.business', 'GETBYID', newDataCollection);
+            newDataCollection = BindApiBodyInput('company.business', 'GETBYID', newDataCollection);
             break;
         default:
             Popup.Show('error', 'Invalid action called');

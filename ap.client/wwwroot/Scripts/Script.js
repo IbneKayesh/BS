@@ -1,5 +1,5 @@
 ﻿APState.GlobalSet(AP_STATE_USER_ID, "KAYESH")
-APState.GlobalSet(AP_STATE_API_AUTH_TOKEN, "a10")
+APState.GlobalSet(AP_STATE_API_AUTH_TOKEN, "ESL")
 APState.GlobalSet(AP_STATE_API_BASE_URL, "http://localhost:5117/api/Xecute/v1/Perform");
 
 
