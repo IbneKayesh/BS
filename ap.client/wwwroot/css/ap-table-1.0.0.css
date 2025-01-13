@@ -43,6 +43,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
+
+    /* Table Header Styling */
+    .ap-table tfoot {
+        background-color: rgba(44, 110, 47, 0.7);
+        color: white;
+    }
 .ap-hidden-row {
     overflow: hidden;
     display: none; /* Initially hide the rows */

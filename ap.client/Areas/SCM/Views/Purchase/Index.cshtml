@@ -11,7 +11,7 @@
                     <div class="custom-select">
                         <label for="BranchId">Branch:</label>
                         <select id="BranchId" title="Select Branch">
-                            <option value="-">Select</option>
+                            <option value="D79CE016-FBD1-44A2-8303-493BBC157602">Select</option>
                         </select>
                     </div>
                 </div>
@@ -56,30 +56,7 @@
                 </div>
             </div>
             <!-- row 2 -->
-            <div class="col-md-2 col-12">
-                <div class="form-group">
-                    <label for="CostAmount">Cost Amount:</label>
-                    <input type="number" id="CostAmount" placeholder="Enter Cost Amount" title="Enter Cost Amount" />
-                </div>
-            </div>
-            <div class="col-md-2 col-12">
-                <div class="form-group">
-                    <label for="TotalAmount">Total Amount:</label>
-                    <input type="number" id="TotalAmount" placeholder="Enter Total Amount" title="Enter Total Amount" value="0" readonly />
-                </div>
-            </div>
-            <div class="col-md-1 col-12">
-                <div class="form-group">
-                    <label>Paid?</label>
-                    <div class="mt-6">
-                        <label>
-                            <input type="checkbox" id="IsPaid">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-12">
+            <div class="col-md-10 col-12">
                 <div class="form-group">
                     <label for="PoNote">Note:</label>
                     <input type="text" id="PoNote" placeholder="Enter PO Note" title="Enter PO Note" />
@@ -87,7 +64,7 @@
             </div>
             <div class="col-md-1 col-12">
                 <div class="form-group">
-                    <label>Active?</label>
+                    <label>Posted?</label>
                     <div class="mt-6">
                         <label>
                             <input type="checkbox" id="IsActive">
@@ -101,26 +78,26 @@
     <div id="page-actions" class="row-content">
         <button type="button" class="btn btn-size-sm bg-dimgrey" onclick="PageGoClear('page-entry-purchase',this);"><i class="fas fa-rotate"></i> Clear</button>
         <button type="button" class="btn btn-size-sm bg-blue" onclick="PageGoActionEvent('page-list-purchase',this);"><i class="fas fa-search"></i> Search</button>
-        <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-purchase',this);"><i class="fas fa-check-circle"></i> Submit</button>
     </div>
     <div id="page-entry-product">
         <div class="row">
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="ProductId">Product:</label>
-                    <input type="text" id="ProductId" placeholder="Enter Product Id" title="Enter Product Id" />
+                    <input type="hidden" id="ProductId" />
+                    <input type="text" id="ProductName" placeholder="Enter Product Barcode or Name" title="Enter Product Barcode or Name" onblur="PageGoActionEvent('search-purchase-item',this);" />
                 </div>
             </div>
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="ProductQty">Qty:</label>
-                    <input type="number" id="ProductQty" placeholder="Enter Product Qty" title="Enter Product Qty" />
+                    <input type="number" id="ProductQty" placeholder="Enter Product Qty" title="Enter Product Qty" onkeyup="PageGoActionEvent('product-amount',this);" onblur="PageGoActionEvent('product-amount',this);" onkeypress="PageGoCustomEvent(event,'add-to-cart',this);" />
                 </div>
             </div>
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="ProductRate">Rate:</label>
-                    <input type="number" id="ProductRate" placeholder="Enter Product Rate" title="Enter Product Rate" />
+                    <input type="number" id="ProductRate" placeholder="Enter Product Rate" title="Enter Product Rate" onkeyup="PageGoActionEvent('product-amount',this);" onblur="PageGoActionEvent('product-amount',this);" />
                 </div>
             </div>
             <div class="col-md-2 col-12">
@@ -129,21 +106,110 @@
                     <input type="number" id="ProductAmount" placeholder="Enter Amount" title="Enter Amount" readonly />
                 </div>
             </div>
-            <div class="col-md-2 col-12">
+            <div class="col-md-3 col-12">
                 <div class="form-group">
                     <label for="ProductNote">Note:</label>
                     <input type="text" id="ProductNote" placeholder="Enter Note" title="Enter Note" />
                 </div>
             </div>
-            <div class="col-md-2 col-12 p-10" style="margin-top: 18px;">
-                <button type="button" class="btn btn-size-sm bg-red" title="Add to cart" onclick="PageGoActionEvent('add-to-cart',this);"> Add</button>
+            <div class="col-md-1 col-12 p-10" style="margin-top: 18px;">
+                <button type="button" class="btn btn-size-sm bg-blue" title="Add to cart" onclick="PageGoActionEvent('add-to-cart',this);"><i class="fas fa-plus"></i> Add</button>
             </div>
         </div>
     </div>
-    <div id="page-list-product" class="w-100 ap-table-responsive d-none">
+    <div id="page-list-product" class="w-100 ap-table-responsive">
+        <table id="table-list-product" class="ap-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total:</th>
+                    <th class="table-footer-qty text-right">0</th>
+                    <th></th>
+                    <th class="table-footer-amt text-right">0</th>
+                    <th colspan="2"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="page-payment" class="d-none">
+        <div class="row">
+            <!-- row 1 -->
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <div class="custom-select">
+                        <label for="PaymentType">Payment Type:</label>
+                        <select id="PaymentType" title="Select Payment Type">
+                            <option value="CASH">Cash</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="CostAmount">Cost Amount:</label>
+                    <input type="number" id="CostAmount" placeholder="Enter Cost Amount" title="Enter Cost Amount" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="TotalAmount">Total Amount:</label>
+                    <input type="number" id="TotalAmount" placeholder="Enter Total Amount" title="Enter Total Amount" value="0" readonly />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="PayAmount">Pay Amount:</label>
+                    <input type="number" id="PayAmount" placeholder="Enter Pay Amount" title="Enter Pay Amount" />
+                </div>
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="form-group">
+                    <label for="DueAmount">Due Amount:</label>
+                    <input type="number" id="DueAmount" placeholder="Enter Due Amount" title="Enter Due Amount" value="0" readonly />
+                </div>
+            </div>
+            <div class="col-md-1 col-12">
+                <div class="form-group">
+                    <label>Paid?</label>
+                    <div class="mt-6">
+                        <label>
+                            <input type="checkbox" id="IsPaid">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-content">
+            <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-purchase',this);"><i class="fas fa-check-circle"></i> Submit</button>
+        </div>
     </div>
 </div>
 
 @section Scripts {
     <script src="~/Areas/SCM/Purchase.js" asp-append-version="true"></script>
 }
+<!--
+    1. Clear all (done)
+    2. Write something (done)
+    3. Pick data (done)
+    4. Clear all (done)
+    5. Fill Data / if no data, remine cleared (done)
+    6. Qty keyup > calculate Line amount (done)
+    7. Rate keyup > calculate Line amount (done)
+    8. Add Click > fn1 ( check valid data > Create tr td)
+    9. Qty keypress > fn1
+    10. add row Click > sum footer (done)
+    11. remove row Click > remove row, sum footer (done)
+-->
