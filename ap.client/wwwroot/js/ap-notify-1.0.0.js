@@ -72,11 +72,6 @@
         const noButton = document.createElement('button');
         noButton.classList.add('btn', 'btn-size-m', 'bg-crimson');
         noButton.innerHTML = '<i class="fas fa-times-circle"></i>No';
-        //noButton.onclick = function () {
-        //    noCallback();
-        //    document.body.removeChild(overlay); // Close the modal
-        //};
-
         noButton.onclick = function () {
             // Fade out effect before removing
             overlay.classList.remove('fade-in');
@@ -84,16 +79,13 @@
             setTimeout(() => {
                 document.body.removeChild(overlay);
                 noCallback();
+                document.removeEventListener('keydown', handleF10Key); // Remove F10 listener when modal is closed
             }, 400); // Wait for fade-out animation to complete
         };
 
         const yesButton = document.createElement('button');
         yesButton.classList.add('btn', 'btn-size-m', 'bg-green');
-        yesButton.innerHTML = '<i class="fas fa-check-circle"></i>Yes';
-        //yesButton.onclick = function () {
-        //    yesCallback();
-        //    document.body.removeChild(overlay); // Close the modal
-        //};
+        yesButton.innerHTML = '<i class="fas fa-check-circle"></i>Yes (F2)';
         yesButton.onclick = function () {
             // Fade out effect before removing
             overlay.classList.remove('fade-in');
@@ -101,6 +93,7 @@
             setTimeout(() => {
                 document.body.removeChild(overlay);
                 yesCallback();
+                document.removeEventListener('keydown', handleF10Key); // Remove F10 listener when modal is closed
             }, 400); // Wait for fade-out animation to complete
         };
 
@@ -120,10 +113,14 @@
         requestAnimationFrame(() => {
             overlay.classList.add('fade-in');
         });
+
+        // Function to handle F10 key press
+        function handleF10Key(event) {
+            if (event.key === 'F2') {
+                yesButton.click(); // Trigger Yes button click
+            }
+        }
+        // Add functionality for F10 key to trigger Yes button
+        document.addEventListener('keydown', handleF10Key);
     }
 }
-// Example Usage:
-// showNotification('ok', 'This is a success message');
-// showNotification('warn', 'This is a warning message');
-// showNotification('info', 'This is an info message');
-// showNotification('error', 'This is a danger message');

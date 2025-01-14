@@ -1,0 +1,45 @@
+﻿
+Short Name	Full Name	Usage/Description
+SO	Sales Order	A document confirming a customer’s order for goods or services.
+SI	Sales Invoice	A billing statement for products or services provided to the customer.
+SR	Sales Receipt	A confirmation or acknowledgment of received payment for goods or services.
+SRT	Sales Return	The return of goods purchased by the customer, often resulting in a refund or exchange.
+CN	Credit Note	A document issued to reduce the amount owed due to returns, errors, or adjustments.
+DN	Debit Note	A document issued to increase the amount owed due to additional charges or corrections.
+DS	Discounts on Sales	Adjustments for discounts applied to sales transactions (e.g., promotional offers).
+ST	Sales Tax	The tax applied to sales transactions, typically calculated and added to invoices.
+PO	Purchase Order	An order placed with a supplier for goods or services.
+PI	Purchase Invoice	An invoice received from a supplier for goods or services provided.
+PR	Purchase Receipt	A receipt confirming the delivery of goods or services from a supplier.
+PRT	Purchase Return	The return of goods to a supplier due to defects, over-supply, or other issues.
+VCN	Vendor Credit Note	A document from the supplier that reduces the amount owed due to returns or errors.
+DP	Discounts on Purchases	Discounts offered by suppliers on purchases, such as early payment or volume discounts.
+GR	Goods Receipt	Confirmation that goods ordered from a supplier have been received into inventory.
+STF	Stock Transfer	The movement of stock between different locations within the business (e.g., warehouses).
+SA	Stock Adjustment	Adjustments made to inventory due to discrepancies like spoilage or theft.
+WO	Inventory Write-Off	Removal of obsolete or damaged inventory from records and stock.
+CR	Customer Return	The process of a customer returning goods, which can result in a refund or store credit.
+SRR	Supplier Return	The process of returning goods to a supplier, often due to defects or other issues.
+CP	Customer Payment	Payment received from customers for goods or services sold.
+SP	Supplier Payment	Payment made to suppliers for goods or services purchased.
+PA	Payment Adjustment	Adjustments made to payments, such as partial payments, write-offs, or refunds.
+OF	Order Fulfillment	The process of picking, packing, and shipping customer orders.
+SC	Sales Commissions	Tracking commissions paid to sales personnel based on their sales performance.
+IA	Invoice Adjustments	Changes made to existing invoices, such as correcting quantities or pricing errors.
+CM	Credit Management	Managing credit terms, limits, and collections for customer accounts.
+
+
+Business
+BDT-Currency
+
+Unit
+0-No Parent
+
+Purchase
+PO-Purchase Order
+PR-Purchase Return
+CASH-Payment Type
+
+Contacts
+CUSTOMER
+SUPPLIER

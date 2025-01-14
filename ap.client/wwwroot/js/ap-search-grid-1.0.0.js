@@ -49,13 +49,20 @@
                         <i class="fas fa-times-circle"></i> Close
                     </button>
                     <button id="btn-search-grid-ok" type="button" class="btn btn-size-m bg-light-green">
-                        <i class="fas fa-check-circle"></i> OK
+                        <i class="fas fa-check-circle"></i> OK (F2)
                     </button>
                 </div>
             </div>`;
 
     $('body').append(modalHtml);
-
+    
+    // Add F10 key press event listener
+    $(document).on('keydown', function (e) {
+        if (e.key === 'F2') {
+            e.preventDefault(); // Prevent default F10 behavior
+            $('#btn-search-grid-ok').trigger('click'); // Trigger OK button click
+        }
+    });
 
     // Show modal
     $('#search-grid-overlay').fadeIn(300);
@@ -64,7 +71,7 @@
 
     // Close modal on clicking the close button
     $('.search-grid-modal-close-btn, .search-grid-modal-close-icon').on('click', function () {
-        $('#search-grid-overlay').fadeOut(300); // Close overlay
+        $('#search-grid-overlay').remove(); // Close overlay
         $(`#search-grid-modal`).fadeOut(300, function () {
             $(this).remove();
         });
@@ -103,7 +110,7 @@
         });
         if (selectedRows.length > 0) {
             options.onSelect(selectedRows); // Trigger onSelect callback with selected rows
-            $('#search-grid-overlay').fadeOut(300); // Close overlay
+            $('#search-grid-overlay').remove(); // Close overlay
             $(`#search-grid-modal`).fadeOut(300, function () {
                 $(this).remove();
             });

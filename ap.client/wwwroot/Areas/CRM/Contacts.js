@@ -19,10 +19,10 @@ function PageGoClear(action, sender) {
             $('#ContactType').val('-');
             $('#CategoryId').val('-');
             $('#ContactName').val('');
-            $('#ContactPerson').val('');
-            $('#ContactNo').val('');
-            $('#EmailAddress').val('');
-            $('#OfficeAddress').val('');
+            $('#ContactPerson').val('-');
+            $('#ContactNo').val('-');
+            $('#EmailAddress').val('-');
+            $('#OfficeAddress').val('-');
             $('#IsActive').prop('checked', false);
             Popup.Show('info', 'Page cleared');
             break;

@@ -176,6 +176,7 @@ body {
 .text-crimson {
     color: crimson; /* Danger red */
 }
+
 .text-red {
     color: red; /* Danger red */
 }
@@ -329,11 +330,13 @@ select {
     }
 
 input[type="checkbox"] {
-    accent-color: #71435F;
+    accent-color: rgba(44, 110, 47, 0.7);
     background-color: #fff;
     transition: background-color 0.3s, border-color 0.3s;
     cursor: pointer;
     border-radius: 3px;
+    width: 20px;
+    height: 25px;
 }
 
     input[type="checkbox"]:not(:checked) {
@@ -349,8 +352,8 @@ select {
 
     select:focus option:checked {
         color: #fff;
-        background-color: #A05B86;
-        box-shadow: 0 .5px .5px #0003
+        background-color: rgba(44, 110, 47, 0.7);
+        box-shadow: 0 .5px .5px #0003;
     }
 
 /**** file upload element styles ****/
@@ -464,6 +467,10 @@ label {
 /*Other content*/
 
 
+.w-50 {
+    width: 50% !important;
+}
+
 .w-100 {
     width: 100%
 }
@@ -484,6 +491,14 @@ label {
 .text-right {
     text-align: right !important;
     justify-content: right !important;
+}
+
+.text-strong {
+    font-weight: 700;
+}
+
+.text-small {
+    font-size:small !important;
 }
 
 
@@ -899,7 +914,6 @@ label {
 
 .tab-body {
     display: none;
-
 }
 
     .tab-body.active {

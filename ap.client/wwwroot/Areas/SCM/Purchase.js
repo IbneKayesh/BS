@@ -5,16 +5,28 @@
     Date: Oct - 2024
     Inspired from Bootstrap, Tailwind CSS and jQuery
  ***/
+
 //function: 0
 $(document).ready(function () {
-    $('#page-title').text('Unit');
-    $('#table-list-unit').ToTable();
-    PageGoActionEvent('UnitId', '');
+    $('#page-title').text('Purchase');
+    $('#TrnDate').val(FormatStringToDateOnly(new Date()));
+    PageGoActionEvent('BranchId', this);
 });
 
 //function: 1
 function PageGoClear(action, sender) {
     switch (action) {
+        case 'page-entry-purchase':
+            $('#BranchId').val('-');
+            $('#ContactId').val('');
+            $('#ContactName').val('');
+            $('#TrnType').val('-');
+            $('#TrnNo').val('');
+            $('#TrnDate').val(FormatStringToDateOnly(new Date()));
+            $('#RefTrn').val('');
+            $('#PoNote').val('');
+            $('#IsActive').prop('checked', false);
+            break;
         case 'search-purchase-item':
             $('#ProductId').val('');
             $('#ProductName').val('');
@@ -45,7 +57,7 @@ function PageGoValidateInput(action, sender) {
             newDataCollection = BindApiBodyInput('inventory.branch-products', 'GETPURCHASEPRODUCTS', newDataCollection);
             break;
         case 'add-to-cart':
-            isValid &= ValidateInputField('#ProductId', value => value === '', "Product Name is required");
+            isValid &= ValidateInputField('#ProductId', value => value === '', "Product is required");
             isValid &= ValidateInputField('#ProductName', value => value === '', "Product Name is required");
             isValid &= ValidateInputField('#ProductQty', value => value === '' || parseInt(value) <= 0, "Qty is required");
             isValid &= ValidateInputField('#ProductRate', value => value === '' || parseInt(value) < 0, "Rate is required");
@@ -59,23 +71,38 @@ function PageGoValidateInput(action, sender) {
                 ProductNote: $('#ProductNote').val().trim(),
             };
             break;
-        case 'delete-unit':
+        case 'table-list-product-duplicate':
+            let isUniqueItem = true;
+            var ProductId = $('#ProductId').val().trim();
+            $(`#table-list-product tbody tr`).each(function () {
+                const cellText = $(this).find('td:eq(0)').text().trim();
+                if (cellText === ProductId) {
+                    isUniqueItem = false;
+                    return false; // Break out of the loop
+                }
+            });
+            isValid = isUniqueItem;
+            break
+        case 'page-entry-product':
+            isValid &= ValidateInputField('#BranchId', value => value === '' || value === '-' || value === null, "Branch is required");
+            isValid &= ValidateInputField('#ContactId', value => value === '' || value === '-' || value === null, "Supplier Contact is required");
+            isValid &= ValidateInputField('#TrnType', value => value === '' || value === '-' || value === null, "Transaction Type is required");
+            isValid &= ValidateInputField('#TrnDate', value => value === '', "Date is required");
+            var poStatus = $('#IsActive').is(':checked') ? "Posted" : "Not Posted";
+            var poMaster = $("#TrnType option:selected").text() + " - " + $('#ContactName').val() + " (" + poStatus + ")";
             newDataCollection = {
-                Id: $(sender).data('id')
+                POMaster: poMaster
             }
-            newDataCollection = BindApiBodyInput('inventory.unit', 'DELETE', newDataCollection);
             break;
-        case 'edit-unit':
+        case 'ContactName':
+            isValid &= ValidateInputField('#ContactName', value => value === '', "Supplier Contact is required");
             newDataCollection = {
-                Id: $(sender).data('id')
+                ContactName: $(sender).val()
             }
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETBYID', newDataCollection);
+            newDataCollection = BindApiBodyInput('crm.contacts', 'GETSUPPLIERBYNAME', newDataCollection);
             break;
-        case 'UnitId':
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETALLPARENT', newDataCollection);
-            break;
-        case 'add-to-cart1':
-            newDataCollection = BindApiBodyInput('inventory.unit', 'GETALL', newDataCollection);
+        case 'BranchId':
+            newDataCollection = BindApiBodyInput('company.branch', 'GETALL', newDataCollection);
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -88,18 +115,37 @@ function PageGoValidateInput(action, sender) {
 function PageGoBindHTML(action, dynData, sender) {
     switch (action) {
         case 'add-to-cart':
-            var row = $('<tr></tr>');
-            row.append('<td class="d-none">' + dynData.ProductId + '</td>');
-            row.append('<td>' + dynData.ProductName + '</td>');
-            row.append('<td class="text-right">' + dynData.ProductQty + '</td>');
-            row.append('<td class="text-right">' + dynData.ProductRate + '</td>');
-            row.append('<td class="text-right">' + dynData.ProductAmount + '</td>');
-            row.append('<td>' + dynData.ProductNote + '</td>');
-            row.append(`<td><button type="button" class="btn btn-size-sm bg-crimson" onclick="PageGoShowModal('table-list-product-row-remove',this);"><i class="fas fa-trash"></i></button></td>`);
-            $('#table-list-product tbody').append(row);
-            PageGoBindHTML('table-list-product-row-sum', '', sender);
-            PageGoClear('search-purchase-item', sender);
-            $('#ProductName')[0].focus();
+            var validationSummary = PageGoValidateInput('table-list-product-duplicate', sender);
+            if (validationSummary.isValid) {
+                addProductToTable();
+            } else {
+                Popup.Confirm('Product is already added, Do you want to add duplicate?', () => {
+                    addProductToTable();
+                },
+                    () => {
+                        return;
+                    });
+            }
+
+            // Function to add the product row to the table
+            function addProductToTable() {
+                var row = $('<tr></tr>');
+                row.append('<td class="d-none">' + dynData.ProductId + '</td>');
+                row.append('<td>' + dynData.ProductName + '</td>');
+                row.append('<td class="text-right">' + dynData.ProductQty + '</td>');
+                row.append('<td class="text-right">' + dynData.ProductRate + '</td>');
+                row.append('<td class="text-right">' + dynData.ProductAmount + '</td>');
+                row.append('<td>' + dynData.ProductNote + '</td>');
+                row.append(
+                    `<td><button type="button" class="btn btn-size-sm bg-crimson" onclick="PageGoShowModal('table-list-product-row-remove', this);"><i class="fas fa-trash"></i></button></td>`
+                );
+
+                $('#table-list-product tbody').append(row);
+                PageGoBindHTML('table-list-product-row-sum', '', sender);
+                PageGoClear('search-purchase-item', sender);
+                $('#ProductName')[0].focus();
+            }
+
             break;
         case 'table-list-product-row-remove':
             $(sender).parents("tr").remove();
@@ -120,6 +166,14 @@ function PageGoBindHTML(action, dynData, sender) {
             $('#TotalAmount').val(totalAmt.toFixed(2));
             $('#PayAmount').val(totalAmt.toFixed(2));
             break;
+        case 'page-cart-checkout':
+            $('#table-cart-checkout tbody').empty();
+            var tableBody = "";
+            tableBody += "<tr><th colspan='2'><h5>" + $("#BranchId option:selected").text() + "</h5></th></tr>";
+            tableBody += "<tr><th colspan='2'><h3>" + $("#ContactName").val() + "</h3></th></tr>";
+            tableBody += `<tr><th colspan='2'><h5>${$("#TrnType option:selected").text()} ${$('#IsActive').is(':checked') ? "<span class='text-green'>(Posted)</span>" : "<span class='text-crimson'>(Not Posted)</span>"} </h5></th></tr>`
+            $('#table-cart-checkout tbody').append(tableBody);
+            break;
         default:
             Popup.Show('error', 'Invalid action called');
             break;
@@ -132,11 +186,40 @@ function PageGoNext(action, sender) {
         case 'page-payment':
             if ($('#table-list-product tbody tr').length > 0) {
                 $('#page-payment').removeClass('d-none');
+                $('#page-list-product').removeClass("d-none");
             } else {
                 $('#page-payment').addClass('d-none');
+                $('#page-list-product').addClass("d-none");
             }
             break;
-
+        case 'page-entry-product':
+            var validationSummary = PageGoValidateInput(action, sender);
+            if (validationSummary.isValid) {
+                $('#page-entry-purchase').fadeOut(150);
+                $('#page-entry-purchase-short').fadeIn(150);
+                $('#page-entry-purchase-short').html(validationSummary.newDataCollection.POMaster);
+                $('#page-actions').fadeOut(150);
+                //for only once
+                $('#page-entry-product').removeClass("d-none");
+            } else {
+                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
+            }
+            break;
+        case 'page-entry-purchase':
+            $('#page-entry-purchase').fadeIn(100);
+            $('#page-entry-purchase-short').fadeOut(100);
+            $('#page-entry-purchase-short').html('');
+            $('#page-actions').fadeIn(100);
+            break;
+        case 'page-cart-checkout':
+            $('#page-cart-checkout').removeClass("d-none");
+            $('#page-po-master').addClass("d-none");
+            PageGoBindHTML(action, '', sender);
+            break;
+        case 'page-po-master':
+            $('#page-cart-checkout').addClass("d-none");
+            $('#page-po-master').removeClass("d-none");
+            break;
         default:
             Popup.Show('error', 'Invalid action called');
             break;
@@ -211,67 +294,12 @@ function PageGoActionEvent(action, sender) {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
             break;
-        case 'delete-unit':
-            var validationSummary = PageGoValidateInput(action, sender);
-            if (validationSummary.isValid) {
-                BusyBox.Busy(sender, '');
-                AjaxRequestJson({
-                    data: JSON.stringify(validationSummary.newDataCollection),
-                    success: function (data, status, xhr) {
-                        var parsedData = JSON.parse(data);
-                        if (parsedData.SUCCESS) {
-                            PageGoBindHTML(action, $(sender).data('id'), sender);
-                            Popup.Show("ok", "Request submitted successfully");
-                        } else {
-                            Popup.Show("error", parsedData.MESSAGE);
-                        }
-                    },
-                    error: function (xhr) {
-                        Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
-                    },
-                    complete: function () {
-                        BusyBox.Reset(sender);
-                    }
-                });
-            } else {
-                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
-            }
-
-            break;
-        case 'edit-unit':
-            var validationSummary = PageGoValidateInput(action, sender);
-            if (validationSummary.isValid) {
-                AjaxRequestJson({
-                    data: JSON.stringify(validationSummary.newDataCollection),
-                    success: function (data, status, xhr) {
-                        var parsedData = JSON.parse(data);
-                        if (parsedData.SUCCESS) {
-                            PageGoBindHTML(action, parsedData.EQResult[0].DynamicData[0]);
-                        } else {
-                            Popup.Show("error", parsedData.MESSAGE);
-                        }
-                    },
-                    error: function (xhr) {
-                        Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
-                    },
-                    complete: function () {
-                    }
-                });
-            } else {
-                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
-            }
-
-            break;
-        case 'UnitId':
-            const UnitIdDdl = $('#UnitId');
-            UnitIdDdl.empty();
-            UnitIdDdl.append($('<option>', {
+        case 'BranchId':
+            const BranchIdDdl = $('#BranchId');
+            BranchIdDdl.empty();
+            BranchIdDdl.append($('<option>', {
                 value: '-',
                 text: "-Select-"
-            }));
-            UnitIdDdl.append($('<option>', {
-                value: '0',
-                text: "No Parent"
             }));
             var validationSummary = PageGoValidateInput(action, sender);
             if (validationSummary.isValid) {
@@ -281,9 +309,9 @@ function PageGoActionEvent(action, sender) {
                         var parsedData = JSON.parse(data);
                         if (parsedData.SUCCESS) {
                             parsedData.EQResult[0].DynamicData.forEach(function (item) {
-                                UnitIdDdl.append($('<option>', {
+                                BranchIdDdl.append($('<option>', {
                                     value: item.Id,
-                                    text: item.UnitName
+                                    text: item.BranchName
                                 }));
                             });
 
@@ -300,6 +328,62 @@ function PageGoActionEvent(action, sender) {
             } else {
                 Popup.Show("error", "Request submission is failed, Fix errors and try again!");
             }
+
+            break;
+        case 'ContactName':
+            var validationSummary = PageGoValidateInput(action, sender);
+            if (validationSummary.isValid) {
+                AjaxRequestJson({
+                    data: JSON.stringify(validationSummary.newDataCollection),
+                    success: function (data, status, xhr) {
+                        var parsedData = JSON.parse(data);
+                        if (parsedData.SUCCESS && parsedData.TABLES > 0) {
+                            if (parsedData.EQResult[0].ROWS == 1) {
+                                $('#ContactId').val(parsedData.EQResult[0].DynamicData[0].Id);
+                                $('#ContactName').val(`${parsedData.EQResult[0].DynamicData[0].ContactName}`);
+                            } else {
+                                new SearchGrid({
+                                    title: 'Supplier Contacts',
+                                    colAll: 'Id,ContactName,ContactPerson,ContactNo',
+                                    colTitle: 'Contact Name,Contact Person,Contact No',
+                                    colHidden: 'Id',
+                                    rowMultiSelect: false,
+                                    data: parsedData.EQResult[0].DynamicData,
+                                    onSelect: function (selectedRows) {
+                                        var singleItem = selectedRows[0];
+                                        $('#ContactId').val(singleItem.Id);
+                                        $('#ContactName').val(singleItem.ContactName);
+                                    }
+                                });
+                            }
+                        } else {
+                            Popup.Show("error", parsedData.MESSAGE);
+                        }
+                    },
+                    error: function (xhr) {
+                        Popup.Show("error", 'Error: ' + xhr.status + ' ' + xhr.statusText + ', ' + xhr.responseText);
+                    },
+                    complete: function () {
+                    }
+                });
+            } else {
+                Popup.Show("error", "Request submission is failed, Fix errors and try again!");
+            }
+
+            break;
+        case 'payment-amount':
+            var TotalAmount = parseFloat($('#TotalAmount').val()) || 0;
+            var PayAmount = parseFloat($('#PayAmount').val()) || 0;
+            var DueAmount = TotalAmount - PayAmount;
+            $('#DueAmount').val((DueAmount).toFixed(2));
+            if (DueAmount <= 0) {
+                $('#IsPaid').prop('checked', true);
+            } else {
+                $('#IsPaid').prop('checked', false);
+            }
+            break;
+        case 'page-entry-purchase':
+            Popup.Show("ok", "Transaction saved successfully");
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -319,7 +403,6 @@ function PageGoShowModal(action, sender) {
             break;
     }
 }
-
 
 function PageGoCustomEvent(event, action, inputElement) {
     if (event.which === 13) { // Check if Enter key (key code 13) is pressed
