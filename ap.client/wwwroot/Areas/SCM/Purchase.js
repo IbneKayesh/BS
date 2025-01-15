@@ -171,7 +171,32 @@ function PageGoBindHTML(action, dynData, sender) {
             var tableBody = "";
             tableBody += "<tr><th colspan='2'><h5>" + $("#BranchId option:selected").text() + "</h5></th></tr>";
             tableBody += "<tr><th colspan='2'><h3>" + $("#ContactName").val() + "</h3></th></tr>";
-            tableBody += `<tr><th colspan='2'><h5>${$("#TrnType option:selected").text()} ${$('#IsActive').is(':checked') ? "<span class='text-green'>(Posted)</span>" : "<span class='text-crimson'>(Not Posted)</span>"} </h5></th></tr>`
+            tableBody += "<tr><th colspan='2'><h6>" + FormatStringToDateOnly($('#TrnDate').val()) + "</h6></th></tr>";
+            tableBody += `<tr><th colspan='2'><h5>${$("#TrnType option:selected").text()} ${$('#IsActive').is(':checked') ? "<span class='text-green'>(Posted)</span>" : "<span class='text-crimson'>(Not Posted)</span>"}</h5></th></tr>`
+            tableBody += `<tr><td colspan="2"></td></tr>`;
+            $('#table-list-product tbody tr').each(function () {
+                var itemName = $(this).find('td:eq(1)').text();
+                var itemQty = parseFloat($(this).find('td:eq(2)').text()).toFixed(2);
+                var itemRate = parseFloat($(this).find('td:eq(3)').text()).toFixed(2);
+                var itemAmount = parseFloat($(this).find('td:eq(3)').text()).toFixed(2);
+                tableBody += `<tr><td class="text-right w-50">${itemName} ${itemQty} x ${itemRate}</td><td class="text-strong">= ${itemAmount}/-</td></tr>`;
+            });
+            tableBody += `<tr><td colspan="2"></td></tr>`;
+            tableBody += `<tr><td class="text-right w-50">Total </td><td class="text-strong">= ${$('#TotalAmount').val()}/- (BDT)</td></tr>`;
+
+            tableBody += `<tr><td class="text-right w-50">Payment </td><td class="text-strong">= ${$('#PayAmount').val()}/- by ${$("#PaymentType option:selected").text()}</td></tr>`;
+
+            var isPaid = $('#IsPaid').is(':checked');
+            if (!isPaid) {
+                tableBody += `<tr><td class="text-right w-50">Due </td><td class="text-strong">= ${$('#DueAmount').val()}/- <span class="text-crimson">(Unpaid)</span></td></tr>`;
+            } else {
+                tableBody += `<tr><td class="text-right w-50">Due </td><td class="text-strong">= <span class="text-green">Paid</span></td></tr>`;
+            }
+            var costAmount = $('#CostAmount').val();
+            if (parseFloat(costAmount) > 0) {
+                tableBody += `<tr><td class="text-right w-50">Additional Cost </td><td class="text-strong">= <span class="text-crimson">${parseFloat(costAmount).toFixed(2)}</span></td></tr>`;
+            }
+            tableBody += `<tr><td colspan="2" class="text-center"><button type="button" class="btn btn-size-sm bg-blue mr-2" onclick="PageGoNext('page-po-master',this);"><i class="fas fa-circle-chevron-left"></i> Back to Entry</button><button type="button" class="btn btn-size-xl bg-green" onclick="PageGoActionEvent('page-entry-purchase',this);"><i class="fas fa-circle-check"></i> Submit</button></td></tr>`;
             $('#table-cart-checkout tbody').append(tableBody);
             break;
         default:
@@ -212,13 +237,21 @@ function PageGoNext(action, sender) {
             $('#page-actions').fadeIn(100);
             break;
         case 'page-cart-checkout':
-            $('#page-cart-checkout').removeClass("d-none");
-            $('#page-po-master').addClass("d-none");
-            PageGoBindHTML(action, '', sender);
+            var DueAmount = parseFloat($('#DueAmount').val()) || 0;
+            var isPaid = $('#IsPaid').is(':checked');
+            if (!isPaid && DueAmount === 0) {
+                Popup.Show('warn', 'Enter Payment Amount');
+            } else {
+                $('#page-cart-checkout').removeClass("d-none");
+                $('#page-po-master').addClass("d-none");
+                PageGoBindHTML(action, '', sender);            }
             break;
         case 'page-po-master':
             $('#page-cart-checkout').addClass("d-none");
             $('#page-po-master').removeClass("d-none");
+            break;
+        case 'page-new':
+            location.reload();
             break;
         default:
             Popup.Show('error', 'Invalid action called');
@@ -383,6 +416,11 @@ function PageGoActionEvent(action, sender) {
             }
             break;
         case 'page-entry-purchase':
+            $('#table-cart-checkout tbody').empty();
+            var tableBody = "";
+            tableBody += "<tr><th colspan='2'><h3>PO-JAN25-0001 (PO created)</h3></th></tr>";
+            tableBody += `<tr><td colspan="2" class="text-center"><button type="button" class="btn btn-size-m bg-blue mr-2" onclick="PageGoNext('page-new',this);"><i class="fas fa-plus"></i> Create a new Purchase</button></td></tr>`;
+            $('#table-cart-checkout tbody').append(tableBody);
             Popup.Show("ok", "Transaction saved successfully");
             break;
         default:

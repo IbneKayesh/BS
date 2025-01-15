@@ -19,7 +19,7 @@
             <div class="col-md-2 col-12">
                 <div class="form-group">
                     <label for="ContactId">Contact:</label>
-                    <input type="hidden" id="ContactId" />
+                    <input type="hidden" id="ContactId" value="1"/>
                     <input type="text" id="ContactName" placeholder="Supplier Name" title="Supplier Name" onblur="PageGoActionEvent('ContactName',this);" />
                 </div>
             </div>
@@ -157,7 +157,7 @@
             </div>
             <div class="col-md-2 col-12">
                 <div class="form-group">
-                    <label for="CostAmount">Cost Amount:</label>
+                    <label for="CostAmount">Additional Cost:</label>
                     <input type="number" id="CostAmount" placeholder="Enter Cost Amount" title="Enter Cost Amount" value="0" />
                 </div>
             </div>
@@ -191,55 +191,14 @@
             </div>
         </div>
         <div class="row-content">
-            <button type="button" id="btn-submit" class="btn btn-size-sm bg-green" onclick="PageGoNext('page-cart-checkout',this);"><i class="fas fa-cart-shopping"></i> Checkout</button>
+            <button type="button" class="btn btn-size-sm bg-green" onclick="PageGoNext('page-cart-checkout',this);"><i class="fas fa-cart-shopping"></i> Checkout</button>
         </div>
     </div>
 </div>
 
-<div id="page-cart-checkout" class="card-body d-none" onclick="PageGoNext('page-po-master',this);">
+<div id="page-cart-checkout" class="card-body d-none">
     <table id="table-cart-checkout" class="ap-table text-small">
         <tbody>
-            <tr>
-                <th colspan="2"><h5>Woody Store</h5></th>
-            </tr>
-            <tr>
-                <th colspan="2"><h3>M/S River Bay Enterprise</h3></th>
-            </tr>
-            <tr>
-                <th colspan="2"><h5>Purchase Order <span class="text-crimson">(Not Posted)</span></h5></th>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Atta, 5 (Kg) x 70</td>
-                <td class="text-strong">= 350/-</td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Sugar, 2 (Kg) x 140</td>
-                <td class="text-strong">= 280/-</td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Salt 1 (Kg) x 35</td>
-                <td class="text-strong">= 35/-</td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Soyabean Oil 2 (Ltr) x 190</td>
-                <td class="text-strong">= 380/-</td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Total (BDT)</td>
-                <td class="text-strong">=19000/- (Paid)</td>
-            </tr>
-            <tr>
-                <td class="text-right w-50">Due (BDT)</td>
-                <td class="text-strong">=1400/- <span class="text-crimson">(Unpaid)</span></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-center">
-                    <button type="button" id="btn-submit" class="btn btn-size-sm bg-green" onclick="PageGoActionEvent('page-entry-purchase',this);"><i class="fas fa-circle-check"></i> Submit</button>
-                </td>
-            </tr>
         </tbody>
     </table>
 </div>

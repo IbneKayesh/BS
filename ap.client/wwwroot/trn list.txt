@@ -43,3 +43,44 @@ CASH-Payment Type
 Contacts
 CUSTOMER
 SUPPLIER
+
+
+
+- Database Backup
+- Data Report Backup
+- Purchase, Sales Report
+- Income, Expense Report
+- Profit, Loss Report
+- Balance Sheet
+- Profit Margin
+- Stock
+
+- Purchase Voucher
+- Sales Voucher
+- Purchase Return Voucher
+- Sales Return Voucher
+- Payment Voucher
+- Receipt Voucher
+- Journal Voucher
+- Stock Journal Voucher
+- Multiple Cash Point
+- Gorss Profit, Gross Loss
+- Net Profit, Net Loss
+- High Price Product
+- Low Price Product
+- Multiple Prices
+- Multiple Stock Unit
+
+- Opening Stock
+- Closing Stock
+- Daily Purchase Stock
+- Daily Sales Stock
+- Item wise transaction Ledger
+- Invoice Attachment Purchase
+
+
+example features
+https://www.youtube.com/watch?v=e7E7HJW3uUk
+https://www.youtube.com/watch?v=9zceyzGXj1w
+
+Recent Files
