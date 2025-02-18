@@ -1,0 +1,33 @@
+﻿[
+  {
+    "Id": "ESL",
+    "Name": "Easy Start - Light",
+    "Data": "apps.eslight",
+    "MODULE": [
+      {
+        "Name": "user_profile",
+        "Path": "user_profile",
+        "Extensions": ".txt,.pdf.jpeg,.png",
+        "FileSizeMB": "5",
+        "GuidFileName": false,
+        "ReplaceOld": false
+      },
+      {
+        "Name": "user_profile",
+        "Path": "user_profile",
+        "Extensions": ".txt,.pdf.jpeg,.png",
+        "FileSizeMB": "5",
+        "GuidFileName": false,
+        "ReplaceOld": false
+      },
+      {
+        "Name": "user_profile",
+        "Path": "user_profile",
+        "Extensions": ".txt,.pdf.jpeg,.png",
+        "FileSizeMB": "5",
+        "GuidFileName": false,
+        "ReplaceOld": false
+      }
+    ]
+  }
+]
