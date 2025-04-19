@@ -1,0 +1,5 @@
+﻿{
+  "DB": "MSSQL.WT",
+  "NAME": "Projects",
+  "SQL": "SP_WT_PROJECTS"
+}

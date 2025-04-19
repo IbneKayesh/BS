@@ -17,5 +17,24 @@
         "Path": "crm"
       }
     ]
+  },
+  {
+    "Id": "WT",
+    "Name": "We Team",
+    "Data": "apps.wtlight",
+    "MODULE": [
+      {
+        "Name": "setup",
+        "Path": "setup"
+      },
+      {
+        "Name": "inventory",
+        "Path": "inventory"
+      },
+      {
+        "Name": "crm",
+        "Path": "crm"
+      }
+    ]
   }
 ]

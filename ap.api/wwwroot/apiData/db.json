@@ -7,8 +7,8 @@
         "CONECTION": "Data Source=IT-KAYESH\\SQLEXPRESS; Initial Catalog=bsl; User Id=sa; Password=123; TrustServerCertificate=True;Connect Timeout=30"
       },
       {
-        "NAME": "BS1",
-        "CONECTION": "Data Source=DESKTOP-5V892PN\\SQLEXPRESS; Initial Catalog=bsl; User Id=sa; Password=123; TrustServerCertificate=True;Connect Timeout=30"
+        "NAME": "WT",
+        "CONECTION": "Data Source=IT-KAYESH\\SQLEXPRESS; Initial Catalog=wtapdb; User Id=sa; Password=123; TrustServerCertificate=True;Connect Timeout=30"
       }
     ]
   }
